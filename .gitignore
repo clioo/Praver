@@ -2,6 +2,7 @@
 __pycache__
 myvenv
 db.sqlite3
+.env
 .DS_Store
 # Windows image file caches
 Thumbs.db

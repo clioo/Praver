@@ -80,14 +80,18 @@ WSGI_APPLICATION = 'inmobiliaria.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-        'default': {
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'praver',
-        'USER': 'postgres',
-        'PASSWORD':'wi8h51u1',
-        'HOST':'localhost',
-        'PORT':5432,
     }
+    'default': {
+ORT':5432,
+    'ENGINE': 'django.db.backends.postgresql_psycopg2',
+
+        'P    'NAME': 'praver',
+'localhost',    'USER': 'postgres',
+     'HOST':    'PASSWORD':'wi8h51u1',
+h51u1',
+       'HOST':'localhost',
+SSWORD':'wi8    'PORT':5432,
+     'PA    }
     }
 
 
@@ -131,7 +135,8 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-import django_heroku
-django_heroku.settings(locals())
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')        'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'praver',
+        'USER': 'postgres',
+   
