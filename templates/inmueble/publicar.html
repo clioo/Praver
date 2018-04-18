@@ -1,0 +1,437 @@
+{%extends 'base/base.html'%}
+{% load staticfiles %}
+{%load crispy_forms_tags%}
+
+{% block extrastatic %}
+    <link rel="stylesheet" href="{%static 'css/publicar.css'%}">
+    <link rel="stylesheet" href="{%static 'css/fileinput-rtl.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/fileinput.min.css'%}">
+
+
+
+{% endblock %}
+
+{%block content%}
+<form method="POST" id="regForm" enctype="multipart/form-data">
+    {%csrf_token%}
+    <h1>Publicar anuncio</h1>
+    <div class="tab">
+        <div id="div_id_titulo" class="form-group">
+            <label for="id_titulo" class="form-control-label">
+            Título de la propiedad
+            </label>
+            <div class="">
+                <input maxlength="100"class="col-lg-9 col-md-12 form-control" id="id_titulo" name="titulo" placeholder="Ejemplo: Bonita casa amplia recién remodelada lista para habitar" type="text">
+            </div>
+        </div>
+        <div id="div_id_descripcion" class="form-group">
+            <label for="id_descripcion" class="form-control-label">
+            Descripción de la propiedad</label>
+            <div class="">
+                <textarea style="height:150px;" maxlength="200" class="form-control col-lg-9 col-md-12 textarea" cols="40" id="id_descripcion" name="descripcion" placeholder="Características generales y principales atractivos de la propiedad" rows="10"></textarea>
+            </div>
+        </div>
+    </div>
+    
+    <div class="tab">
+        <label for="id_tipoInmueble" class="form-group">Tipo de inmueble</label>
+        <div id="div_id_tipoInmueble" class="form-group">
+            <div class="">
+                <select class="form-control col-md-6 select" id="id_tipoInmueble" name="tipoInmueble">
+                    <option value="casa">Casa</option>
+                    <option value="depa">Departamento</option>
+                    <option value="dupl">Dúplex</option>
+                    <option value="ofic">Oficina</option>
+                    <option value="loca">Local comercial</option>
+                </select>
+            </div>
+        </div>
+        <label class="form-group">Características</label>
+        <div class="row">
+            <div id="div_id_antiguedad" class="col-sm-4">
+                <label class="subLabel" for="id_antiguedad">Antigüedad</label>
+                <input placeholder="Años de antigüedad"  class="col-md-12 form-control form-control 2digitos" id="id_antiguedad" name="antiguedad" type="text">
+            </div>
+            <div id="div_id_recamaras" class="col-sm-4">
+                <label for="id_recamaras" class="subLabel">Número de recamaras</label>
+                <input placeholder="Recamaras" class="col-md-12 form-control 2digitos" id="id_recamaras" name="recamaras" type="text">
+            </div>
+            <div id="div_id_estacionamiento" class="col-sm-4">
+                <label for="id_estacionamiento" class="subLabel">Espacio de estacionamiento</label>
+                <input placeholder="Estacionamiento" class="col-md-12 form-control form-control 2digitos" id="id_estacionamiento" name="estacionamiento" type="text">
+            </div>
+        </div>
+        <div class="row">
+            <div id="div_id_banos" class="col-sm-4">
+                <label for="id_banos" class="subLabel">Baños completos</label>
+                <input placeholder="Baños completos" class="form-control col-md-12 form-control 2digitos" id="id_banos" name="banos" type="text">
+            </div>
+            <div id="div_id_mediosBanos" class="col-sm-4">
+                <label for="id_mediosBanos" class="subLabel">Medios baños</label>
+                <input placeholder="Medios baños" class="form-control col-md-12 form-control 2digitos" id="id_mediosBanos" name="mediosBanos" type="text">
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+        <div id="containerTitulo">
+            <label id="lbl_tipoVenta" class="form-group">Tipo de venta($MXN)</label>
+        </div>
+        
+        <div id="div_id_tipoVenta" class="form-group">
+            <div class="row" style="margin-bottom: 3px;">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input type="checkbox" name="tipoVenta" id="id_tipoVenta_1" value="vent">
+                        </span>
+                        <span class="input-group-addon">Venta</span>
+                        <input placeholder="Precio de venta" class="form-control money" id="id_precioVenta" name="precioVenta" placeholder="Precio de venta" type="text" disabled="true">
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 3px;">
+                    <div class="col-md-6">
+                        <div class="input-group">
+                            <span class="input-group-addon">
+                                    <input type="checkbox" name="tipoRenta" id="id_tipoVenta_2" value="rent">
+                            </span>
+                            <span class="input-group-addon">Renta</span>
+                            <input class="form-control money" id="id_precioRenta" name="precioRenta" placeholder="Precio de renta" type="text" disabled = "true">
+                        </div>
+                    </div>
+            </div>
+            <div class="row" style="margin-bottom: 3px;">
+                <div class="col-md-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">
+                            <input type="checkbox" name="tipoTraspaso" id="id_tipoVenta_3" value="tras">
+                        </span>
+                        <span class="input-group-addon">Traspaso</span>
+                        <input class="form-control money" id="id_precioTraspaso" name="precioTraspaso" placeholder="Precio de traspaso" type="text" disabled="true">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <label class="form-group">Dimensiones(m2)</label>
+        <div id="div_id_dimensiones" class="form-group">
+            <div class="input-group">
+                <div class="col-md-6">
+                    <label for="id_metrosConstruidos" class="subLabel">Metros construidos</label>
+                    <input class="col-md-12 form-control 4digitos" id="id_metrosConstruidos" name="metrosConstruidos" placeholder="Metros construidos" type="text">
+                </div>
+                <div class="col-md-6">
+                    <label for="id_metrosTotales" class="subLabel">Metros totales</label>
+                    <input class="form-control col-md-12 4digitos" id="id_metrosTotales" name="metrosTotales" placeholder="Metros totales" type="text">
+                </div>
+            </div>
+          
+        </div>
+    </div>
+
+    <div class="tab">
+        <label class="form-group"> Domicilio</label>
+
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-4">
+                    <label for="id_estado" class="subLabel">Estado</label>
+                    <select class="form-control select" id="id_estado" name="entidad">
+                        <option value="0">--------------</option>
+                        {%if estados%}
+                            {%for estado in estados%}
+                                <option value="{{estado.c_estado}}">{{estado.d_estado}}</option>
+                            {%endfor%}
+                        {%endif%}
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="id_municipio" class="subLabel">Municipio</label>
+                    <select class="form-control select" id="id_municipio" name="municipio">
+                        <option value="0">--------------</option>
+                    </select>
+                </div>
+
+                <div class="col-md-4">
+                    <label for="id_colonia" class="subLabel">Colonia</label>
+                    <select class="form-control select" id="id_colonia" name="colonia">
+                        <option value="0">--------------</option>
+                    </select>
+                </div>
+
+            </div>
+            <strong id="idStrongEstados" style="color:red;font-size: 11;visibility: hidden;"></strong>
+            
+        </div>
+
+
+        <label for="id_calle" class="form-group subLabel">Calle</label>
+        <div id="div_id_calle" class="form-group">
+            <input maxlength="30" class="form-control col-lg-9 col-md-12 textinput" id="id_calle" name="calle" placeholder="Calle" type="text">
+        </div>
+        <div class="form-group">
+            <class class="row">
+                    <div class="col-md-4">
+                        <label for="id_numExt" class="form-control-label subLabel">
+                        Número exterior</label>
+                        <input class="form-control col-lg-9 col-md-12 textinput numExt" id="id_numExt" name="numExt" placeholder="Número exterior" type="text">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="id_numInt" class="form-control-label subLabel">
+                        Número interior(opcional)</span></label>   
+                        <input maxlength="5" class="form-control col-md-12" id="id_numInt" name="numInt" placeholder="Número interior(opcional)" type="text">
+                    </div>
+                    <div class="col-md-4">
+                        <label for="id_codigoPostal" class="form-control-label subLabel">
+                        Código postal</label>
+                        <input class="CP form-control col-md-12" id="id_codigoPostal" name="codigoPostal" placeholder="Código postal" type="text">
+                    </div>
+            </class>
+  
+        </div>
+
+
+        <div id="div_id_mostrarMapa" class="form-group">
+            <label for="id_mostrarMapa" class="form-control-label subLabel">
+            Cómo mostrar en el mapa</label>
+            <div class="">
+                <select class="select form-control" id="id_mostrarMapa" name="mostrarMapa">
+                    <option value="0" selected="selected">---------</option>
+                    <option value="exac">Mostrar ubicación exacta</option>
+                    <option value="apro">Mostrar ubicación aproximada</option>
+                    <option value="no">No mostrar</option>
+                </select>
+            </div>
+            <strong id="idStrongMostrarMapa" style="color:red;font-size: 11;visibility: hidden;"></strong>
+        </div>
+        <div class="form-group">
+            <div class="row">
+                <input id="pac-input" class="controls col-sm-12" type="text" placeholder="Dirección">
+                <div id="map"></div>
+                <input type="text" value="0" id="id_longitud" name="longitud" style="display: none"></input>
+                <input type="text" value="0" id="id_latitud" name="latitud" style="display: none"></input>
+            </div>
+  
+        </div>
+    </div>
+
+    <div class="tab">
+        <div id="div_id_servicios" class="form-group">
+            
+            <label for="id_servicios_0" class="form-control-label">
+            Servicios del inmueble</label>
+            <div class="">
+                <div class="checkbox">
+                    <label class=""><input type="checkbox" name="servicioGas" id="id_servicios_1" value="gas">
+                    Gas </label>
+                </div>
+                <div class="checkbox">
+                    <label class=""><input type="checkbox" name="servicioAire" id="id_servicios_2" value="aire">
+                    Aire acondicionado </label>
+                </div>
+                <div class="checkbox">
+                    <label class=""><input type="checkbox" name="servicioSegu" id="id_servicios_3" value="segu">
+                    Seguridad privada </label>
+                </div>
+                <div class="checkbox">
+                    <label class=""><input type="checkbox" name="servicioCale" id="id_servicios_4" value="cale">
+                    Calefacción </label>
+                </div>
+                <div class="checkbox">
+                    <label class=""><input type="checkbox" name="servicioAmu" id="id_servicios_5" value="amu">
+                    Amueblada </label>
+                </div>
+            </div>
+        </div>
+        <div id="div_id_estadoConservacion" class="form-group">
+            <label for="id_estadoConservacion" class="form-control-label">
+            Estado de conservación</label>
+            <div class="">
+                <select class="form-control col-lg-9 col-md-12 select form-control" id="id_estadoConservacion" name="estadoConservacion">
+                    <option value="buen">Bueno</option>
+                    <option value="malo">Malo</option>
+                    <option value="remod">Para remodelar</option>
+                    <option value="vand">Vandalizada</option>
+                </select>
+            </div>
+        </div>
+        <input id="input-b3" name="archivos" type="file" class="file" multiple data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select {files} for upload...">
+        
+
+    </div>
+
+
+    <div class="form-group" style="width:100%;text-align:center;margin-top:40px;">
+            <button style=" margin-left: 1px; margin-right: 1px;" class="btn btn-primary" onclick="nextPrev(-1)" type="button" id="btnAnt">Anterior</button>
+        <button  class="btn btn-primary" id="btnSig" onclick="nextPrev(1)" type="button" >Siguiente</button>
+    </div>
+
+    <div class="form-group" style="width:100%;text-align:center;margin-top:40px;">
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        <span class="step"></span>
+        </div>
+        
+    
+</form>
+
+{%endblock%}
+
+{%block scripts%}
+<script>
+    
+    function initAutocomplete() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            fullscreenControl:false,
+            center: {lat: -33.8688, lng: 151.2195},
+            zoom: 13,
+            mapTypeId: 'roadmap'
+        });
+        var infoWindow = new google.maps.InfoWindow({map: map});                                     //geolocalización
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var pos = {
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude
+                };
+                map.setCenter(pos);
+            });
+        } else {
+            // Browser doesn't support Geolocation
+            handleLocationError(false, infoWindow, map.getCenter());
+        }
+    // Create the search box and link it to the UI element.
+    var input = document.getElementById('pac-input');
+    var searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    // Bias the SearchBox results towards current map's viewport.
+    map.addListener('bounds_changed', function() {
+        searchBox.setBounds(map.getBounds());
+    });
+    var markers = [];
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener('places_changed', function() {
+        var places = searchBox.getPlaces();
+        if (places.length == 0) {
+        return;
+        }
+        // Clear out the old markers.
+        try {
+        markers.forEach(function(marker) {
+        marker.setMap(null);
+        });
+        } catch (error) {
+        
+        }
+
+        markers = [];
+
+        // For each place, get the icon, name and location.
+        var bounds = new google.maps.LatLngBounds();
+        places.forEach(function(place) {
+        if (!place.geometry) {
+            console.log("Returned place contains no geometry");
+            return;
+        }
+        // Create a marker for each place.
+        if (document.getElementById('id_mostrarMapa').value == "apro") {
+            markers.push(circleMarker(place.geometry.location,map));
+        }
+        else{
+            markers.push(placeMarker(place.geometry.location,map));
+        }
+       
+        if (place.geometry.viewport) {
+            // Only geocodes have viewport.
+            bounds.union(place.geometry.viewport);
+        } else {
+            bounds.extend(place.geometry.location);
+        }
+        });
+        map.fitBounds(bounds);
+    });
+    var Marca = null;
+    map.addListener('dblclick', function(e) {
+        placeMarker(e.latLng, map);
+    });
+    var Marca = null;
+    var Circulo = null; 
+    $('#id_mostrarMapa').change(function(){
+        cambiarmarca();
+        document.getElementById('id_latitud').value = "0";
+        document.getElementById('id_longitud').value="0";
+    });
+    function cambiarmarca() {
+        google.maps.event.clearListeners(map, 'dblclick');
+        if (Marca != null) Marca.setMap(null);
+        if (Circulo != null) Circulo.setMap(null);
+        if (document.getElementById('id_mostrarMapa').value ==  "apro"){ 
+            map.addListener('dblclick', function(e) {
+                circleMarker(e.latLng, map);
+            });
+        }
+        else{
+            map.addListener('dblclick', function(e) {
+                placeMarker(e.latLng, map);
+            });
+        }
+    }
+    function placeMarker(latLng, map) {
+        document.getElementById('id_latitud').value = latLng.lat();
+        document.getElementById('id_longitud').value = latLng.lng();
+        if (Marca != null) Marca.setMap(null);
+        Marca = new google.maps.Marker({
+            position: latLng,
+            map: map,
+        });
+    }
+    function RandomBetw(val) {
+        var entero = Math.floor(parseFloat(val));
+        var i = parseFloat(val) + 0.0005-entero;
+        i = i * 1000000;
+        var f = parseFloat(val) - 0.0005-entero;
+        f = f * 1000000;
+        var res = Math.floor(Math.random() * (f-i+1)) + i;
+        res = res / 1000000;
+        res = res + entero;
+        return res;
+    }
+    function circleMarker(latLng, map) {
+        document.getElementById('id_latitud').value = latLng.lat();
+        document.getElementById('id_longitud').value = latLng.lng();
+        if (Circulo != null) Circulo.setMap(null);
+        var centro = {lat: RandomBetw(latLng.lat()), lng: RandomBetw(latLng.lng())};
+        Circulo = new google.maps.Circle({
+            strokeColor: '#000000',
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: '#a8e4ff',
+            fillOpacity: 0.5,
+            map: map,
+            center: centro,
+            radius: 130,
+        });
+    }
+    /*var myLatLng;                                                                //Cargar marcas
+    myLatLng = {lat: 25.775110, lng: -109.030606};                              //AQUI INICIA CICLO PARA CARGAR MARCAS
+    var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: 'Casa de Ramón'
+    });*/                                                                         //AQUI TERMINA CICLO PARA CARGAR MARCAS
+    }
+    function handleLocationError(browserHasGeolocation, infoWindow, pos) {                        
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.' :'Error: Your browser doesn\'t support geolocation.');
+    }
+</script>
+<script src="{%static 'js/fileinput.min.js'%}"></script>
+
+
+
+<script src="{%static 'js/formTab.js'%}"></script>
+<script src="{%static 'js/jquery.mask.js'%}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwaYxp9FNqlqrD39VaI1G8BGieF02zAnc&libraries=places&callback=initAutocomplete" async defer></script>
+{%endblock%}
