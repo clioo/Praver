@@ -76,9 +76,9 @@ WSGI_APPLICATION = 'inmobiliaria.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
-import dj_database_url
+import dj-database-url
 DATABASES = {
-        'default': dj_database_url.config()
+        'default': dj-database-url.config()
     }
 
 
