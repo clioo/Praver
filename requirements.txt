@@ -1,0 +1,4 @@
+Django==1.9.6
+django-crispy-forms==1.7.0
+djangorestframework==3.7.3
+psycopg2==2.7.3.2
