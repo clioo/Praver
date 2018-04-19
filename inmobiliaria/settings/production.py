@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'inmobiliaria.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-DATABASES = {
+"""DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'praver',
@@ -86,10 +86,7 @@ DATABASES = {
         'HOST':'192.168.0.13',
         'PORT':6122,
     }
-    }
-import dj_database_url
-db_from_env = dj_database_url.config()
-DATABASES['default'].update(db_from_env)
+    }"""
 
 
 # Password validation
@@ -133,3 +130,5 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+import dj_database_url
+DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
