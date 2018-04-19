@@ -87,6 +87,10 @@ WSGI_APPLICATION = 'inmobiliaria.wsgi.application'
         'PORT':6122,
     }
     }"""
+    import dj_database_url
+    DATABASES = {
+        'default':dj_database_url.config(conn_max_age=600, ssl_require=True)
+    }
 
 
 # Password validation
@@ -130,5 +134,3 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-import dj_database_url
-DATABASES['default'] = dj_database_url.config(conn_max_age=600, ssl_require=True)
