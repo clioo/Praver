@@ -83,7 +83,7 @@ DATABASES = {
         'NAME': 'praver',
         'USER': 'postgres',
         'PASSWORD':'wi8h51u1',
-        'HOST':'192.168.0.31',
+        'HOST':'localhost',
         'PORT':5432,
     }
     }
@@ -133,6 +133,3 @@ STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
 
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-
-import django_heroku
-django_heroku.settings(locals())
