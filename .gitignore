@@ -3,6 +3,10 @@ __pycache__
 myvenv
 db.sqlite3
 .env
+*.jpg
+*.jpeg
+*.png
+*.gif
 .DS_Store
 inmobiliaria/settings/local.py
 # Windows image file caches

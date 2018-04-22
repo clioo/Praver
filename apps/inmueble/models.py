@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+import os
+from django.core.files import File
 # Create your models here.
 class Inmueble(models.Model):
     #Opciones____________________
@@ -49,7 +51,16 @@ class Inmueble(models.Model):
 
 class ImagenesInmbueble(models.Model):
     inmueble  = models.ForeignKey(Inmueble)
-    imagen =models.ImageField()
+    imagen =models.ImageField(upload_to='media')
+    link = models.URLField()
+    def get_remote_image(self):
+        if self.link and not self.imagen:
+            result = urllib.urlretrieve(self.link)
+            self.image_file.save(
+            os.path.basename(self.link),
+            File(open(result[0]))
+            )
+            self.save()
 
 class Localidades(models.Model):
     d_codigo = models.CharField(max_length=10)

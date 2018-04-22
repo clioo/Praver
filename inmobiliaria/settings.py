@@ -81,10 +81,10 @@ DATABASES = {
         'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'praver',
-        'USER': 'postgres',
+        'USER': 'postgre',
         'PASSWORD':'wi8h51u1',
         'HOST':'localhost',
-        'PORT':5432,
+        'PORT':'',
     }
     }
 
@@ -127,6 +127,3 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 STATICFILES_DIRS = (os.path.join(BASE_DIR, 'static'),)
-
-
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
