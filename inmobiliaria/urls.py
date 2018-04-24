@@ -23,3 +23,7 @@ urlpatterns = [
     url(r'^',include('apps.usuarios.urls')),
     url(r'^',include('apps.inmueble.urls')),
 ]
+
+urlpatterns += [
+    url(r'^(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, }),
+]
