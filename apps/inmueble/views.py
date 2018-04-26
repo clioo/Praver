@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from apps.inmueble.serializers import InmuebleSerializer
+from apps.inmueble.serializers import InmuebleSerializer,ImagenesInmbuebleSerializer
 from django.shortcuts import render,redirect
 from django.db.models import Count
 from apps.inmueble.forms import InmuebleForm,ImagenesForm
@@ -10,6 +10,7 @@ from django.http import JsonResponse,HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view
+from django.db.models import Q #esta funcion hace queries por ti
 # Create your views here.
 @login_required(login_url='/login/')
 def vistaPublicar(request):
@@ -114,9 +115,8 @@ def ajax_getColonias(request):
     return JsonResponse(arreglo,safe=False)
     pass
 
-
 @api_view(['GET'])
-def vista_json_inmuebles(request,lat1,lat2,lon1,lon2): #,lat1,lat2,lon1,lon2
+def vista_json_mapaInmuebles(request,lat1,lat2,lon1,lon2): #,lat1,lat2,lon1,lon2
     inmuebles = Inmueble.objects.filter(longitud__gt=lon2
     ).filter(longitud__lte=lon1
     ).filter(latitud__gt=lat2
@@ -126,3 +126,21 @@ def vista_json_inmuebles(request,lat1,lat2,lon1,lon2): #,lat1,lat2,lon1,lon2
         return JsonResponse(serializer.data,safe=False)
     return HttpResponse("Error")
     pass
+
+def vista_json_imagenesInmueble(request,idInmueble):
+    imagenes = ImagenesInmbueble.objects.filter(inmueble=idInmueble)
+    serializer = ImagenesInmbuebleSerializer(imagenes,many=True)
+    if serializer.data:
+        return JsonResponse(serializer.data,safe=False)
+    return HttpResponse("Error")
+    pass
+#tipoInmueble="-",recamaras="-",estacionamiento="-",banos="-",mediosBanos="-",tipoVenta="-",tipoRenta="-",tipoTraspaso="-",precioVenta="-",precioRenta="-",precioTraspaso="-",metrosConstruidos="-",metrosTotales="-",entidad,municipio,colonia="-",servicioGas="-",servicioAire="-",servicioSegu="-",servicioCale="-",servicioAmu="-"
+def vista_json_filtroInmuebles(request):
+    query = Q()
+    query &= Q(tipoInmueble='casa')
+    query &= Q(recamaras="5")
+    inmuebles = Inmueble.objects.filter(query)
+    serializer = InmuebleSerializer(inmuebles,many=True)
+    if inmuebles:
+        return JsonResponse(serializer.data,safe=False)
+    return HttpResponse("Error")

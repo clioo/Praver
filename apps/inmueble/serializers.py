@@ -5,3 +5,8 @@ class InmuebleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Inmueble
         fields = '__all__'
+
+class ImagenesInmbuebleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ImagenesInmbueble
+        fields = '__all__'

@@ -11,25 +11,25 @@ class Inmueble(models.Model):
     user = models.ForeignKey(User)
     titulo = models.CharField(max_length=100)
     descripcion = models.CharField(max_length=200)
-    tipoInmueble = models.CharField(max_length=10,choices=opcionesTipoInmueble)
+    tipoInmueble = models.CharField(max_length=10,choices=opcionesTipoInmueble) #
     antiguedad = models.CharField(max_length=20,blank=True,null=True)
-    recamaras = models.CharField(max_length=20)
-    estacionamiento = models.CharField(max_length=20)
-    banos = models.CharField(max_length=20)
-    mediosBanos = models.CharField(max_length=20)
+    recamaras = models.CharField(max_length=20) #
+    estacionamiento = models.CharField(max_length=20) #
+    banos = models.CharField(max_length=20) #
+    mediosBanos = models.CharField(max_length=20)#
     #Tipo de venta
-    tipoVenta = models.BooleanField(default=False)
-    tipoRenta = models.BooleanField(default=False)
-    tipoTraspaso = models.BooleanField(default=False)
+    tipoVenta = models.BooleanField(default=False) #
+    tipoRenta = models.BooleanField(default=False) #
+    tipoTraspaso = models.BooleanField(default=False) #
     #_________
-    precioVenta = models.CharField(max_length=20,blank=True,null=True)
-    precioRenta = models.CharField(max_length=20,blank=True,null=True)
-    precioTraspaso = models.CharField(max_length=20,blank=True,null=True)
-    metrosConstruidos = models.CharField(max_length=20)
-    metrosTotales = models.CharField(max_length=20)
-    entidad = models.CharField(max_length=30)
-    municipio = models.CharField(max_length=30)
-    colonia = models.CharField(max_length=30)
+    precioVenta = models.CharField(max_length=20,blank=True,null=True) #
+    precioRenta = models.CharField(max_length=20,blank=True,null=True) #
+    precioTraspaso = models.CharField(max_length=20,blank=True,null=True) #
+    metrosConstruidos = models.CharField(max_length=20) #
+    metrosTotales = models.CharField(max_length=20) #
+    entidad = models.CharField(max_length=30) #
+    municipio = models.CharField(max_length=30) #
+    colonia = models.CharField(max_length=30) #
     calle = models.CharField(max_length=30)
     numExt = models.CharField(max_length=4)
     numInt = models.CharField(max_length=5,blank=True,null=True)
@@ -38,13 +38,13 @@ class Inmueble(models.Model):
     latitud =  models.DecimalField(blank=True,null=True,max_digits=23, decimal_places=18)
     longitud = models.DecimalField(blank=True,null=True,max_digits=23, decimal_places=18)
     #Servicios del inmbuelbe
-    servicioGas = models.BooleanField(default=False)
-    servicioAire = models.BooleanField(default=False)
-    servicioSegu = models.BooleanField(default=False)#Seguridad privada
-    sevicioCale = models.BooleanField(default=False) #Calefaccion
-    servicioAmu = models.BooleanField(default=False)#Amueblada
+    servicioGas = models.BooleanField(default=False) #
+    servicioAire = models.BooleanField(default=False) #
+    servicioSegu = models.BooleanField(default=False)#Seguridad privada #
+    sevicioCale = models.BooleanField(default=False) #Calefaccion #
+    servicioAmu = models.BooleanField(default=False)#Amueblada #
     #_____________________
-    estadoConservacion = models.CharField(max_length=4, choices=opcionesEstadoConserva)
+    estadoConservacion = models.CharField(max_length=4, choices=opcionesEstadoConserva) #
     avisoDestacado = models.BooleanField(default=False)
 
 class ImagenesInmbueble(models.Model):
