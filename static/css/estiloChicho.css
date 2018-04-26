@@ -5,7 +5,12 @@ body html{
     padding: 0px;
     overflow-x: hidden;
 }
-
+#addPublicacion{
+  font-family: Arial;
+  font-style: normal;
+  font-size: 15px;
+  margin-right: 3px;
+}
 a{
   color: #fff;
 }

@@ -61,7 +61,6 @@ class InmuebleForm(forms.ModelForm):
             'servicioAmu',
             'estadoConservacion',
             'avisoDestacado'
-
         ]
 
 class ImagenesForm(forms.ModelForm):

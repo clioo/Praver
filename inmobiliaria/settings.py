@@ -37,7 +37,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.usuarios',
-    'apps.inmueble'
+    'apps.inmueble',
+    'rest_framework'
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

@@ -1,15 +1,15 @@
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from apps.inmueble.serializers import InmuebleSerializer
 from django.shortcuts import render,redirect
 from django.db.models import Count
 from apps.inmueble.forms import InmuebleForm,ImagenesForm
 from apps.inmueble.models import Localidades,Inmueble,ImagenesInmbueble
 from django.http import JsonResponse,HttpResponse
-from django.template.loader import render_to_string
-from django.core import serializers
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
-from django.conf import settings
-from django.core.files.storage import FileSystemStorage
-import json
+from rest_framework.decorators import api_view
 # Create your views here.
 @login_required(login_url='/login/')
 def vistaPublicar(request):
@@ -45,9 +45,7 @@ def vistaPublicar(request):
         datos.numInt = request.POST.get('numInt')
         datos.codigoPostal = request.POST.get('codigoPostal')
         datos.mostrarMapa = request.POST.get('mostrarMapa')
-        print(request.POST.get('latitud'))
         datos.latitud = request.POST.get('latitud')
-        print(request.POST.get('longitud'))
         datos.longitud = request.POST.get('longitud')
         if request.POST.get('servicioAire'):
             datos.servicioAire = request.POST.get('servicioAire')
@@ -114,4 +112,17 @@ def ajax_getColonias(request):
     arreglo.append(clave)
 
     return JsonResponse(arreglo,safe=False)
+    pass
+
+
+@api_view(['GET'])
+def vista_json_inmuebles(request,lat1,lat2,lon1,lon2): #,lat1,lat2,lon1,lon2
+    inmuebles = Inmueble.objects.filter(longitud__gt=lon2
+    ).filter(longitud__lte=lon1
+    ).filter(latitud__gt=lat2
+    ).filter(latitud__lte=lat1)#longitud2,longitud1,latitud2,latitud1
+    serializer = InmuebleSerializer(inmuebles,many=True)
+    if serializer.data:
+        return JsonResponse(serializer.data,safe=False)
+    return HttpResponse("Error")
     pass
