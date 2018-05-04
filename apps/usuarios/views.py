@@ -55,6 +55,4 @@ def vista_registrarAgente(request):
     return render(request, "usuarios/registrarAgente.html", context)
 
 def vista_regex(request):
-    inmueble = Inmueble.objects.last()
-    imagenes = ImagenesInmbueble.objects.filter(inmueble=inmueble.id)
-    return render(request,'regEx/regEx.html',{'imagenes':imagenes})
+    return render(request,'regEx/regEx.html')
