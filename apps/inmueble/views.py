@@ -10,7 +10,8 @@ from django.http import JsonResponse,HttpResponse
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view
-from django.db.models import Q #esta funcion hace queries por ti
+from django.db.models import Q #esta funcion hace queries por 
+from decimal import Decimal
 # Create your views here.
 @login_required(login_url='/login/')
 def vistaPublicar(request):
@@ -126,7 +127,14 @@ def vista_json_mapaInmuebles(request,lat1,lat2,lon1,lon2): #,lat1,lat2,lon1,lon2
         return JsonResponse(serializer.data,safe=False)
     return HttpResponse("Error")
     pass
-
+def vista_json_latLonInmueble(request,lat,lon): #,lat1,lat2,lon1,lon2
+    inmuebles = Inmueble.objects.filter(latitud__lte=Decimal(lat))
+    print(lat)
+    serializer = InmuebleSerializer(inmuebles,many=True)
+    if serializer.data:
+        return JsonResponse(serializer.data,safe=False)
+    return HttpResponse("Error")
+    pass
 def vista_json_imagenesInmueble(request,idInmueble):
     imagenes = ImagenesInmbueble.objects.filter(inmueble=idInmueble)
     serializer = ImagenesInmbuebleSerializer(imagenes,many=True)
@@ -134,6 +142,7 @@ def vista_json_imagenesInmueble(request,idInmueble):
         return JsonResponse(serializer.data,safe=False)
     return HttpResponse("Error")
     pass
+
 #tipoInmueble="-",recamaras="-",estacionamiento="-",banos="-",mediosBanos="-",tipoVenta="-",tipoRenta="-",tipoTraspaso="-",precioVenta="-",precioRenta="-",precioTraspaso="-",metrosConstruidos="-",metrosTotales="-",entidad,municipio,colonia="-",servicioGas="-",servicioAire="-",servicioSegu="-",servicioCale="-",servicioAmu="-"
 def vista_json_filtroInmuebles(request):
     query = Q()
