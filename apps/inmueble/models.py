@@ -35,8 +35,8 @@ class Inmueble(models.Model):
     numInt = models.CharField(max_length=5,blank=True,null=True)
     codigoPostal = models.CharField(max_length=30,blank=True,null=True)
     mostrarMapa = models.CharField(max_length=4,choices=opcionesMostrarMapa)
-    latitud =  models.DecimalField(blank=True,null=True,max_digits=23, decimal_places=18)
-    longitud = models.DecimalField(blank=True,null=True,max_digits=23, decimal_places=18)
+    latitud =  models.DecimalField(blank=True,null=True,max_digits=28, decimal_places=23)
+    longitud = models.DecimalField(blank=True,null=True,max_digits=28, decimal_places=23)
     #Servicios del inmbuelbe
     servicioGas = models.BooleanField(default=False) #
     servicioAire = models.BooleanField(default=False) #

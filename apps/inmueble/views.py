@@ -128,8 +128,7 @@ def vista_json_mapaInmuebles(request,lat1,lat2,lon1,lon2): #,lat1,lat2,lon1,lon2
     return HttpResponse("Error")
     pass
 def vista_json_latLonInmueble(request,lat,lon): #,lat1,lat2,lon1,lon2
-    inmuebles = Inmueble.objects.filter(latitud__lte=Decimal(lat))
-    print(lat)
+    inmuebles = Inmueble.objects.filter(latitud=lat).filter(longitud=lon)
     serializer = InmuebleSerializer(inmuebles,many=True)
     if serializer.data:
         return JsonResponse(serializer.data,safe=False)

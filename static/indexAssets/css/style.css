@@ -4,12 +4,6 @@
  box-sizing: border-box;
 }
 
-body {
- background: #2196F3;
- position: relative;
- font-family: 'Roboto', sans-serif;
- color: #fff;
-}
 
 #namer {
  position: relative;
@@ -27,20 +21,18 @@ body {
  text-align: center;
  padding: 10px;
  background: transparent;
-	color: #BBDEFB;
+
 }
 
-#namer input:focus {
+#namer input {
  outline: 0;
-	color: #BBDEFB;
-}
-
-
-
-#namer input::-webkit-input-placeholder {
  color: rgb(255, 255, 255);
- opacity: 0.5;
+        font-weight: bold;
 }
+
+
+
+
 
 #namer input::-moz-placeholder {
  color: rgb(255, 255, 255);
@@ -95,9 +87,14 @@ background: transparent;
         background: #ff7d00;
         border-radius: 30px;
 }
-.contenedorSpan:hover{
-        background: #ff7b0081;
+.contenedorSpan.active{
+        background: #ad5605;
 }
+.contenedorSpan:hover{
+        border: 3px solid rgba(0, 0, 0, 0.562);
+}
+
+
 .namer-controls div span:last-child {
  margin-right: 0;
 }
