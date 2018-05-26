@@ -52,12 +52,16 @@ class ImagenesInmbueble(models.Model):
     imagen =models.ImageField()
 
 class Localidades(models.Model):
+    id = models.AutoField(primary_key=True)
     d_codigo = models.CharField(max_length=10)
     d_asenta = models.CharField(max_length=100)
     D_mnpio = models.CharField(max_length=100)
     c_mnpio = models.CharField(max_length=10)
     c_estado = models.CharField(max_length=10)
     d_estado = models.CharField(max_length=50)
+    d_ciudad = models.CharField(max_length=50)
+
     class Meta:
         managed = False
+
         db_table = 'Localidades'

@@ -6,7 +6,6 @@
 <link rel="stylesheet" href="{%static 'indexAssets/theme/css/style.css'%}">
 <link rel="stylesheet" href="{%static 'indexAssets/mobirise/css/mbr-additional.css'%}" type="text/css">
 <link rel="stylesheet" href="{%static 'indexAssets/css/style.css'%}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 {%endblock%}
 
 
@@ -14,28 +13,28 @@
     <section class="cid-qJt8VDa5Sx mbr-fullscreen mbr-parallax-background" id="header2-f">
         <div class="container align-center">
             <div class="row justify-content-md-center">
-                <form action="GET">
-                        <div class="mbr-white col-md-10">
-                                <div id="namer">
-                                    <h1 style="font-size: 50px; color: white; font-weight: bold; text-align: left;">Buscas...</h1>
-                                    <div class="namer-controls active">
-                                        <div class="contenedorSpan"><span>Comprar</span></div>
-                                        <div class="contenedorSpan"><span>Rentar</span></div>
-                                        <div class="contenedorSpan"><span>Traspasar</span></div>
-                                        </div>
-                                    <div id="namer-input">
-                                    <input type="text" name="cadenaBusqueda" placeholder="Dirección">
-                                    <br>
-                                    <br>
-                                    <button id="cmd-buscar" type="submit" class="btn btn-primary">
-                                        <i class="fa fa-search"></i> Buscar
-                                      </button>
-                                <p class="mbr-text pb-3 mbr-fonts-style display-5"></p>
+                    <div class="mbr-white col-md-10">
+                            <div id="namer">
+                                <h1 style="font-size: 50px; color: white; font-weight: bold; text-align: left;">Buscas...</h1>
+                                <div class="namer-controls active">
+                                    <div class="contenedorSpan"><span>Comprar</span></div>
+                                    <div class="contenedorSpan"><span>Rentar</span></div>
+                                    <div class="contenedorSpan"><span>Traspasar</span></div>
+                                    </div>
+                                <div id="namer-input">
+                                <input id="pac-input" type="text" name="cadenaBusqueda" placeholder="Dirección" >
                                 
+                                <br>
+                                <br>
+                                <button id="cmd-buscar" type="button" class="btn btn-primary">
+                                    <i class="fa fa-search"></i> Buscar
+                                    </button>
+                                    
+                                <p class="mbr-text pb-3 mbr-fonts-style display-5"></p>
+                            
+                                </div>
                             </div>
-                        </div>
-                            </div>
-                </form>
+                    </div>
                 
     </section>
 
@@ -71,6 +70,21 @@
 {%endblock%}
 
 {%block scripts%}
+<script type="text/javascript">
+    function initAutocomplete() {
+      autocomplete = new google.maps.places.Autocomplete(
+          /** @type {!HTMLInputElement} */(document.getElementById('pac-input')),
+          {types: ['geocode']});
+      autocomplete.addListener('place_changed', fillInAddress);
+    }
+  
+    function fillInAddress() {
+      var place = autocomplete.getPlace();
+  
+    }
+      </script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAwaYxp9FNqlqrD39VaI1G8BGieF02zAnc&libraries=places&callback=initAutocomplete"
+       async defer></script>
 <script src="{%static 'indexAssets/tether/tether.min.js'%}"></script>
 <script src="{%static 'indexAssets/smoothscroll/smooth-scroll.js'%}"></script>
 <script src="{%static 'indexAssets/parallax/jarallax.min.js'%}"></script>

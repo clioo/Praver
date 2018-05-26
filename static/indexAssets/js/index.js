@@ -1,3 +1,6 @@
+$('#cmd-buscar').click(function(){
+	window.location.href = "/inmueble/lista-inmueble/" + document.getElementById('pac-input').value;
+});
 $("#namer input").on("change keyup paste", function() {
 	var inputValue = $(this).val();
 

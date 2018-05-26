@@ -101,15 +101,9 @@
 <script src="{%static 'js/popper.min.js'%}"></script>
 <script src="{%static 'js/bootstrap.min.js'%}"></script>
 <script>
-  $("#addPublicacion").mouseover(function(){
-    $(this).attr('src','/static/imagenes/add-newhover.png')
-  });
-  $("#addPublicacion").mouseout(function(){
-    $(this).attr('src','/static/imagenes/add-new.png')
-  });
   $('[data-toggle="tooltip"]').tooltip();
   $("#addPublicacion").click(function(){
-    window.location.href = "http://127.0.0.1:8000/inmueble/publicar";
+    window.location.href = "/inmueble/publicar";
   });
 </script>
 {%block scripts%}

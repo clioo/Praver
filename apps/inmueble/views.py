@@ -128,6 +128,8 @@ def vista_json_mapaInmuebles(request,lat1,lat2,lon1,lon2): #,lat1,lat2,lon1,lon2
     return HttpResponse("Error")
     pass
 def vista_json_latLonInmueble(request,lat,lon): #,lat1,lat2,lon1,lon2
+    print(Inmueble.objects.last().latitud)
+    print(Inmueble.objects.last().longitud)
     inmuebles = Inmueble.objects.filter(latitud=lat).filter(longitud=lon)
     serializer = InmuebleSerializer(inmuebles,many=True)
     if serializer.data:
@@ -142,11 +144,68 @@ def vista_json_imagenesInmueble(request,idInmueble):
     return HttpResponse("Error")
     pass
 
-#tipoInmueble="-",recamaras="-",estacionamiento="-",banos="-",mediosBanos="-",tipoVenta="-",tipoRenta="-",tipoTraspaso="-",precioVenta="-",precioRenta="-",precioTraspaso="-",metrosConstruidos="-",metrosTotales="-",entidad,municipio,colonia="-",servicioGas="-",servicioAire="-",servicioSegu="-",servicioCale="-",servicioAmu="-"
-def vista_json_filtroInmuebles(request):
+'''tipoInmueble="-",recamaras="-",estacionamiento="-",
+banos="-",mediosBanos="-",tipoVenta="-",tipoRenta="-",
+tipoTraspaso="-",precioVenta="-",precioRenta="-",precioTraspaso="-",
+entidad,municipio,colonia="-",
+servicioGas="-",servicioAire="-",servicioSegu="-",servicioCale="-",servicioAmu="-"'''
+def vista_lista_inmuebles(request,cadenaBusqueda):
+    cadenas = cadenaBusqueda.split(",")
+    consulta = Q()
+    for cadena in cadenas:
+        consulta |= Q(D_mnpio__icontains=cadena)
+        consulta |= Q(d_ciudad__icontains=cadena)
+        consulta |= Q(d_asenta__icontains=cadena)
+        consulta |= Q(d_estado__icontains=cadena)
+        pass
+    localidades =Localidades.objects.filter(consulta)
+    consulta2 = Q()
+    makesFilter = False #verifica si se aplica algún filtro para no sacar nada
+    for localidad in localidades:
+        makesFilter = True
+        print(localidad.d_codigo)
+        consulta2 |= Q(colonia=localidad.d_codigo)
+    if makesFilter:
+        inmuebles = Inmueble.objects.filter(consulta2)
+        print(inmuebles)
+    return HttpResponse("hola")
+    pass
+def vista_json_filtroInmuebles(request,entidad,municipio,colonia="-",tipoInmueble="-",recamaras="-",estacionamiento="-",banos="-",mediosBanos="-",tipoVenta="-",tipoRenta="-",tipoTraspaso="-",precioVenta="-",precioRenta="-",precioTraspaso="-",servicioGas="-",servicioAire="-",servicioSegu="-",servicioCale="-",servicioAmu="-"):
+    #tendré que hacer una api donde manden cadena de caracteres y yo les devuelva la entidad, municipio y colonia
     query = Q()
-    query &= Q(tipoInmueble='casa')
-    query &= Q(recamaras="5")
+    if tipoInmueble != "-":
+        query &= Q(tipoInmueble=tipoInmueble)
+    if recamaras != "-":
+        query &= Q(recamaras="5")
+    if estacionamiento != "-":
+        query &= Q(estacionamiento=estacionamiento)
+    if banos != "-":
+        query &= Q(banos=banos)
+    if mediosBanos != "-":
+        query &= Q(mediosBanos=mediosBanos)
+    if tipoVenta != "-":
+         query &= Q(tipoVenta=True)
+    if tipoRenta != "-":
+        query &= Q(tipoRenta=True)
+    if tipoTraspaso != "-":
+        query &= Q(tipoTraspaso=True)
+    if entidad != "-":
+        query &= Q(entidad=entidad)
+    if municipio != "-":
+        query &= Q(municipio=municipio)
+    if colonia != "-":
+        query &= Q(colonia=colonia)
+    if servicioGas != "-":
+        query &= Q(servicioGas=True)
+    if servicioAire != "-":
+        query &= Q(servicioAire=True)
+    if servicioSegu != "-":
+        query &= Q(servicioSegu=True)
+    if servicioCale != "-":
+        query &= Q(servicioCale=True)
+    if servicioAmu != "-":
+        query &= Q(servicioAmu=True)
+    # PENDIENTE RANGO DE PRECIOS query &= Q(precioVenta)query &= Q(precioRenta)query &= Q(precioTraspaso)
     inmuebles = Inmueble.objects.filter(query)
     serializer = InmuebleSerializer(inmuebles,many=True)
     if inmuebles:
