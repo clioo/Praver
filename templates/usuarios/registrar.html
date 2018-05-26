@@ -1,0 +1,84 @@
+{%extends 'base/base.html'%}
+{% load staticfiles %}
+{%load crispy_forms_tags%}
+{%block extrastatic%}
+<link rel="stylesheet" href="{%static 'css/publicar.css'%}">
+{%endblock%}
+{%block content%}
+<div class="container col-lg-9 col-md-12">
+    <form id="id_frm_registrar" method="POST">
+        {%csrf_token%}
+        <div id="div_id_correo" class="form-group">
+            <label for="id_correo" class="form-control-label">
+                E-mail*
+            </label>
+            <input maxlength="30" id="id_correo" name="correo" class="col-lg-9 col-md-12 form-control" type="email">
+            <strong id="id_strong_correo" style="color:red;font-size: 11;visibility: hidden;"></strong>
+        </div>
+        
+        <div class="form-group" id="div_id_contrasena">
+            <label for="id_contrasena" class="form-control-label">
+                Contraseña*
+            </label>
+            <input maxlength="18" class="col-lg-9 col-md-12 form-control" id="id_contrasena" name="contrasena" type="password">
+            <strong id="id_strong_contrasenas" style="color:red;font-size: 11;visibility: hidden;"></strong>
+        </div>
+        
+        <div class="form-group" id="div_id_contrasena2">
+                <label for="id_contrasena" class="form-control-label">
+                    Confirmar contraseña*
+                </label>
+                <input maxlength="18" class="col-lg-9 col-md-12 form-control" id="id_contrasena2" name="contrasena2" type="password">
+        </div>
+        <div id="div_id_tipo_usuario" class="form-group">
+            <label for="id_tipo_usuario" class="form-control-label">Tipo de usuario*</label>
+            <div id="id_tipo_usuario">
+                    <div class="form-check-inline">
+                            <label for="id_tipo_agente" class="form-check-label">
+                                <input checked class="form-check-input" type="radio" name="tipo_usuario" id="id_tipo_agente" value="A">
+                                Agente independiente
+                            </label>
+                        </div>
+                    <div class="form-check-inline">
+                            <label for="id_tipo_inmobiliaria" class="form-check-label">
+                                <input class="form-check-input" type="radio" name="tipo_usuario" id="id_tipo_inmobiliaria" value="I">
+                                Inmobiliaria
+                            </label>
+                        </div>
+            </div>
+            
+        </div>
+        <div id="div_id_nombre" class="form-group">
+            <label for="id_nombre" class="form-control-label">Nombre*</label>
+            <input maxlength="30" class="col-lg-9 col-md-12 form-control" type="text" name="nombre" id="id_nombre">
+        </div>
+        <div id="div_id_apellido_paterno" class="form-group">
+                <label for="id_apellido_paterno" class="form-control-label">Apellido paterno*</label>
+                <input maxlength="30" class="col-lg-9 col-md-12 form-control" type="text" name="apellido_paterno" id="id_apellido_paterno">
+            </div>
+        <div id="div_id_apellido_materno" class="form-group">
+                <label for="id_apellido_materno" class="form-control-label">Apellido materno</label>
+                <input maxlength="30" class="col-lg-9 col-md-12 form-control" type="text" name="apellido_materno" id="id_apellido_materno">
+            </div>
+        <div id="div_id_telefono1" class="form-group">
+                <label for="id_telefono1" class="form-control-label">Teléfono*</label>
+                <input class="col-lg-9 col-md-12 form-control telefono" type="text" name="telefono1" id="id_telefono1">
+            </div>
+        <div id="div_id_telefono2" class="form-group">
+            <label for="id_telefono2" class="form-control-label">Teléfono 2(opcional)</label>
+            <input class="col-lg-9 col-md-12 form-control telefono" type="text" name="telefono2" id="id_telefono2">
+        </div>
+        <div style="text-align: center;">
+            <button id="id_btn_registrar" type="button" class="btn btn-primary">Registrarse</button>
+        </div>
+        
+    </form>
+    
+</div>
+
+{%endblock%}
+
+{%block scripts%}
+<script src="{%static 'js/registrar.js'%}"></script>
+<script src="{%static 'js/jquery.mask.js'%}"></script>
+{%endblock%}

@@ -4,8 +4,9 @@ from django.contrib import messages
 from django.contrib.auth import login,logout,authenticate
 from apps.usuarios.forms import LoginForm,RegistrarAgenteForm,RegistrarForm
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth.models import User
 from apps.inmueble.models import ImagenesInmbueble,Inmueble
+from apps.usuarios.models import Profile
 # Create your views here.
 def index(request):
     return render(request,'index.html')
@@ -28,23 +29,27 @@ def vista_login(request):
         return redirect('index')
     return render(request,"usuarios/login.html",context)
 
-def vista_registrarAgente(request):
+def vista_registrar(request):
     if request.user.is_authenticated():
         return redirect('index')
     if request.method == 'POST':
-        form = RegistrarForm(request.POST)
-        profile_form = RegistrarAgenteForm(request.POST)
-        if form.is_valid() and profile_form.is_valid():
-            user  = form.save(commit=False)
-            password = form.cleaned_data.get('password')
-            user.set_password(password)
-            user.save()
-            new_user = authenticate(username=user.username,password=password)
-            login(request,new_user)
-            profile_form = RegistrarAgenteForm(request.POST, instance=request.user.profile)
-            profile_form.save()
-            messages.success(request,"Felicidades "+str(user.username)+", bienvenido")
-            return redirect('index')
+        form = RegistrarForm(request.POST or None)
+        user  = form.save(commit=False)
+        user.email = request.POST.get('correo')
+        user.username = request.POST.get('correo')
+        password = request.POST.get('contrasena')
+        user.set_password(password)
+        user.save()
+        new_user = authenticate(username=request.POST.get('correo'),password=password)
+        login(request,new_user)
+        profile_form = Profile.objects.get(user=request.user)
+        profile_form.nombre = request.POST.get('nombre')
+        profile_form.apellidoPaterno =  request.POST.get('apellido_paterno')
+        profile_form.apellidoMaterno = request.POST.get('apellido_materno')
+        profile_form.telefono =  request.POST.get('telefono1')
+        profile_form.telefono2 = request.POST.get('telefono2')
+        profile_form.save()
+        return redirect('index')
     else:
         form = RegistrarForm()
         profile_form = RegistrarAgenteForm()
@@ -52,7 +57,13 @@ def vista_registrarAgente(request):
     "form":form,
     "profile_form": profile_form
     }
-    return render(request, "usuarios/registrarAgente.html", context)
+    return render(request, "usuarios/registrar.html", context)
+
+def vista_json_correoDisponible(request):
+    correo = request.GET.get('correo',None)
+    if User.objects.filter(email=correo):
+        return HttpResponse("False")
+    return HttpResponse("True")
 
 def vista_regex(request):
     return render(request,'regEx/regEx.html')

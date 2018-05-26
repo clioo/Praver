@@ -4,6 +4,17 @@
  box-sizing: border-box;
 }
 
+#cmd-buscar{
+ color: #fff;
+background-color: #ff7d00;
+border-color: #ff7d00;
+font-size: 20px;
+}
+#cmd-buscar:hover{
+color: #fff;
+background-color: #ad5605;
+border-color: #ad5605; 
+}
 
 #namer {
  position: relative;
@@ -91,7 +102,7 @@ background: transparent;
         background: #ad5605;
 }
 .contenedorSpan:hover{
-        border: 3px solid rgba(0, 0, 0, 0.562);
+        opacity: 0.85;
 }
 
 

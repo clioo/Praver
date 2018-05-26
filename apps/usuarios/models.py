@@ -19,8 +19,8 @@ class Profile(models.Model):
         ('F', 'Femenino'),
         )
     sexo = models.CharField(max_length=30,choices=sex,blank=True)
-    telefono = models.CharField(max_length=10)
-    telefono2 = models.CharField(max_length=10,blank=True)
+    telefono = models.CharField(max_length=15)
+    telefono2 = models.CharField(max_length=15,blank=True)
     def definirCadena(self):
         cadena = "{0}, {1}, {2}, {3}"
         return cadena.format(self.nombre,self.apellidoPaterno,self.apellidoMaterno,self.sexo)
