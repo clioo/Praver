@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from apps.inmueble.serializers import InmuebleSerializer,ImagenesInmbuebleSerializer
+from apps.inmueble.serializers import InmuebleSerializer,ImagenesInmbuebleSerializer,LocalidadesSerializer
 from django.shortcuts import render,redirect
 from django.db.models import Count
 from apps.inmueble.forms import InmuebleForm,ImagenesForm
@@ -100,20 +100,10 @@ def ajax_getMunicipios(request):
 def ajax_getColonias(request):
     c_municipio = request.GET.get('municipio',None)
     c_estado = request.GET.get('estado',None)
-    colonias = Localidades.objects.values('d_asenta','d_codigo')
-    colonias = colonias.filter(c_mnpio=c_municipio,c_estado=c_estado)
+    colonias = Localidades.objects.filter(c_mnpio=c_municipio,c_estado=c_estado)
     colonias = colonias.order_by('d_asenta')
-    descripcion = []
-    clave = []
-    for colonia in colonias:
-        descripcion.append(colonia['d_asenta'])
-        clave.append(colonia['d_codigo'])
-        pass
-    arreglo = []
-    arreglo.append(descripcion)
-    arreglo.append(clave)
-
-    return JsonResponse(arreglo,safe=False)
+    serializer  = LocalidadesSerializer(colonias,many=True)
+    return JsonResponse(serializer.data,safe=False)
     pass
 
 @api_view(['GET'])

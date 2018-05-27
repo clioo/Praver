@@ -24,12 +24,14 @@ $('#id_municipio').change(function(){
     dataType: 'json',
     success:function(datos){
       var comboBox = document.getElementById('id_colonia');
-      for (let i = 0; i < datos[0].length; i++) {
+      $(datos).each(function(i,obj){
         var opcion = document.createElement('option');
-        opcion.value = datos[1][i];
-        opcion.innerText = datos[0][i];
+        opcion.value = obj.id;
+        opcion.innerText = obj.d_asenta;
+        opcion.setAttribute("codigopostal",obj.d_codigo);
         comboBox.appendChild(opcion);
-      }
+      });
+      document.getElementById('id_codigoPostal').value = $('#id_colonia').find(":selected").attr("codigopostal");
     },
     error : function(xhr,errmsg,err) {
       console.log(errmsg);
@@ -37,7 +39,7 @@ $('#id_municipio').change(function(){
   });
 });
 $('#id_colonia').change(function(){
-  document.getElementById('id_codigoPostal').value = $(this).val();
+  document.getElementById('id_codigoPostal').value = $('#id_colonia').find(":selected").attr("codigopostal");
 });
 $(document).ready(function(){
   
@@ -64,6 +66,7 @@ function changeEstado(){
     },
     dataType: 'json',
     success:function(datos){
+      console.log(datos);
       var comboBox = document.getElementById('id_municipio');
       for (let i = 0; i < datos[0].length; i++) {
         var opcion = document.createElement('option');
