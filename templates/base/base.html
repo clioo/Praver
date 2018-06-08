@@ -8,9 +8,10 @@
    <meta http-equiv="X-UA-Compatible" content="ie=edge">
    <title>{%block titulo%}Document{%endblock%}</title>
    <link rel="stylesheet" href="{%static 'css/bootstrap.min.css'%}">
-   <link rel="stylesheet" href="{%static 'css/estiloChicho.css'%}">
+
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
    <link rel="shortcut icon" type="image/png" href="{%static 'imagenes/logo.png'%}"/>
+   <link rel="stylesheet" href="{%static 'css/estiloChicho.css'%}">
    {% block extrastatic %}
 	{% endblock %}
 </head>
@@ -36,7 +37,7 @@
         </div>
         <button id="addPublicacion" class="btn btn-primary"><i class="fa fa-plus"></i> Nueva publicación</button>
         <div class="btn-group">
-            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            <button id="btn-usuario" type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {{request.user.username}}
             </button>
             <div class="dropdown-menu dropdown-menu">
@@ -60,29 +61,35 @@
 </div>
 
 {%block footer%}
-<footer>
-  <div class="container align-center">
-      <div class="row justify-content-md-center">
-        <div class="mbr-white col-md-10">
-          <div id="namer">
-            <h1 style="font-size: 50px; color: white; font-weight: bold; text-align: left;">Buscas...</h1>
-            <div class="namer-controls active">
-              <div id="cmd-comprar" class="contenedorSpan"><span>Comprar</span></div>
-              <div id="cmd-rentar" class="contenedorSpan"><span>Rentar</span></div>
-              <div id="cmd-traspasar" class="contenedorSpan"><span>Traspasar</span></div>
-              </div>
-            <div id="namer-input">
-            <input id="pac-input" type="text" name="cadenaBusqueda" placeholder="Dirección" >
-            <br>
-            <br>
-            <button id="cmd-buscar" type="button" class="btn btn-primary">
-                <i class="fa fa-search"></i> Buscar
-                </button>
-            <p class="mbr-text pb-3 mbr-fonts-style display-5"></p>
+<section class="engine"></section><section class="cid-qJt8VEMmmh" id="footer1-g">
+    <div class="container">
+        <div class="media-container-row content text-white">
+            <div class="col-12 col-md-3">
+                <div class="media-wrap">
+                    <img src="{% static 'imagenes/logo.png'%}">
+                </div>
             </div>
-          </div>
+            <div class="col-12 col-md-3 mbr-fonts-style display-7">
+                <h5 class="pb-3">
+                  Dirección
+                </h5>
+                <p class="mbr-text">
+                    Zaragoza 312 pte, col. centro
+                    <br>Los Mochis, Sinaloa
+                </p>
+            </div>
+            <div class="col-12 col-md-3 mbr-fonts-style display-7">
+                <h5 class="pb-3">
+                    Contactanos
+                </h5>
+                <p class="mbr-text">
+                    Email: soporte@praver.com
+                    <br>Celular: 6688125235
+                </p>
+            </div>
         </div>
-</footer>
+    </div>
+  </section>
 {%endblock%}
 
 <div class="modal fade" id="iniciarSesion">

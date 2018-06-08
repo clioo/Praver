@@ -1,5 +1,5 @@
 $('#cmd-buscar').click(function(){
-	let cadenaFiltro = "";
+	let cadenaFiltro = "#";
 	if ($("#cmd-comprar").hasClass("active")) cadenaFiltro = "c,";
 	if ($("#cmd-rentar").hasClass("active")) cadenaFiltro = cadenaFiltro + "r,";
 	if ($("#cmd-traspasar").hasClass("active")) cadenaFiltro = cadenaFiltro +  "t,";

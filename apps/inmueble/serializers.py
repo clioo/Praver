@@ -40,9 +40,20 @@ class DescripcionLocalidades(serializers.Serializer):
     D_mnpio = serializers.CharField(max_length=30)
     d_estado = serializers.CharField(max_length=30)
 
+class EmailSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['email']
 
 class ProfileSerializer(serializers.ModelSerializer):
+    email = serializers.SerializerMethodField('obtenerEmail')
     class Meta:
         model = Profile
         fields= '__all__'
+    def obtenerEmail(request,user):
+        usuario = User.objects.get(id=user.user.id)
+        serializer = EmailSerializer(usuario)
+        print(usuario.email)
+        return usuario.email
+
     
