@@ -22,7 +22,8 @@ def vista_login(request):
     if request.user.is_authenticated():
         return redirect('index')
     if form.is_valid():
-        username= form.cleaned_data.get('username')
+        username= str(form.cleaned_data.get('username')).lower()
+        print(username)
         password = form.cleaned_data.get('password')
         user = authenticate(username=username,password=password)
         login(request,user)
@@ -35,12 +36,12 @@ def vista_registrar(request):
     if request.method == 'POST':
         form = RegistrarForm(request.POST or None)
         user  = form.save(commit=False)
-        user.email = request.POST.get('correo')
-        user.username = request.POST.get('correo')
+        user.email = str(request.POST.get('correo')).lower()
+        user.username = str(request.POST.get('correo')).lower()
         password = request.POST.get('contrasena')
         user.set_password(password)
         user.save()
-        new_user = authenticate(username=request.POST.get('correo'),password=password)
+        new_user = authenticate(username=str(request.POST.get('correo')).lower(),password=password)
         login(request,new_user)
         profile_form = Profile.objects.get(user=request.user)
         profile_form.nombre = request.POST.get('nombre')

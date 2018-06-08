@@ -139,7 +139,7 @@ banos="-",mediosBanos="-",tipoVenta="-",tipoRenta="-",
 tipoTraspaso="-",precioVenta="-",precioRenta="-",precioTraspaso="-",
 entidad,municipio,colonia="-",
 servicioGas="-",servicioAire="-",servicioSegu="-",servicioCale="-",servicioAmu="-"'''
-def vista_lista_inmuebles(request,cadenaBusqueda):
+def vista_lista_inmuebles(request,cadenaBusqueda,tipoVenta):
     cadenas = cadenaBusqueda.split(",")
     consulta = Q()
     for cadena in cadenas:
@@ -153,12 +153,28 @@ def vista_lista_inmuebles(request,cadenaBusqueda):
     makesFilter = False #verifica si se aplica algún filtro para no sacar nada
     for localidad in localidades:
         makesFilter = True
-        print(localidad.d_codigo)
-        consulta2 |= Q(colonia=localidad.d_codigo)
+        consulta2 |= Q(codigoPostal=localidad.d_codigo)
+    
     if makesFilter:
         inmuebles = Inmueble.objects.filter(consulta2)
-        print(inmuebles)
-    return HttpResponse("hola")
+        if tipoVenta:
+            tipoVenta = tipoVenta.split(",")
+            for tipo in tipoVenta:
+                if tipo == "c":
+                    inmuebles = inmuebles.filter(tipoVenta=True)
+                    pass
+                if tipo == "r":
+                    print("jeloooou")
+                    inmuebles = inmuebles.filter(tipoRenta=True)
+                    pass
+                if tipo == "t":
+                    inmuebles = inmuebles.filter(tipoTraspaso=True)
+                    pass
+                pass
+        pass
+        
+    serializer = InmuebleSerializer(inmuebles,many=True)
+    return render(request,"inmueble/lista-inmuebles.html",{'inmuebles':serializer.data})
     pass
 def vista_json_filtroInmuebles(request,entidad,municipio,colonia="-",tipoInmueble="-",recamaras="-",estacionamiento="-",banos="-",mediosBanos="-",tipoVenta="-",tipoRenta="-",tipoTraspaso="-",precioVenta="-",precioRenta="-",precioTraspaso="-",servicioGas="-",servicioAire="-",servicioSegu="-",servicioCale="-",servicioAmu="-"):
     #tendré que hacer una api donde manden cadena de caracteres y yo les devuelva la entidad, municipio y colonia

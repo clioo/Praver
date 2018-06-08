@@ -11,12 +11,14 @@ class LoginForm(forms.Form):
     username = forms.CharField(label="Usuario",widget=forms.TextInput(attrs={'class':'form-control col-lg-9 col-md-12'}))
     password = forms.CharField(label="Contraseña",widget=forms.PasswordInput(attrs={'class':'form-control col-lg-9 col-md-12'}))
     def clean(self,*args,**kwargs):
-        username = self.cleaned_data.get('username')
+        username = str(self.cleaned_data.get('username')).lower()
         password = self.cleaned_data.get('password')
         user = authenticate(username=username,password=password)
-        if not user:
-            raise forms.ValidationError("El usuario no existe")
-        if not user.check_password(password):
+        print(username)
+        print(password)
+        if username == "none" or password == None:
+            raise forms.ValidationError("Necesita introducir ambos campos")
+        elif not user:
             raise forms.ValidationError("El usuario o la contraseña son incorrectos")
         return super(LoginForm,self).clean(*args,**kwargs)
 

@@ -1,14 +1,19 @@
 {%extends 'base/base.html'%}
 {% load staticfiles %}
 {%load crispy_forms_tags%}
-
+{%block titulo%}
+Iniciar sesión
+{%endblock%}
 {%block content%}
-<div class="container col-sm-6">
+<div class="container col-sm-6" >
 <form method="post" class="form-signin-heading">
    <h2 class="form-signin-heading">Iniciar sesion</h2>
    {%csrf_token%}
    {{form|crispy}}
-   <button class="btn btn-success" type="submit" value="Entrar">Entrar</button>
+   <div style="text-align: center;">
+    <button class="btn btn-primary" type="submit" value="Entrar">Entrar</button>
+   </div>
+   
 </form>
 
 </div>

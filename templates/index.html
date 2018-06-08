@@ -1,6 +1,8 @@
 {%extends 'base/base.html'%}
 {% load staticfiles %}
-
+{%block titulo%}
+Inicio
+{%endblock%}
 {%block extrastatic%}
 <link rel="stylesheet" href="{%static 'indexAssets/web/assets/mobirise-icons/mobirise-icons.css'%}">
 <link rel="stylesheet" href="{%static 'indexAssets/theme/css/style.css'%}">
@@ -17,9 +19,9 @@
                             <div id="namer">
                                 <h1 style="font-size: 50px; color: white; font-weight: bold; text-align: left;">Buscas...</h1>
                                 <div class="namer-controls active">
-                                    <div class="contenedorSpan"><span>Comprar</span></div>
-                                    <div class="contenedorSpan"><span>Rentar</span></div>
-                                    <div class="contenedorSpan"><span>Traspasar</span></div>
+                                    <div id="cmd-comprar" class="contenedorSpan"><span>Comprar</span></div>
+                                    <div id="cmd-rentar" class="contenedorSpan"><span>Rentar</span></div>
+                                    <div id="cmd-traspasar" class="contenedorSpan"><span>Traspasar</span></div>
                                     </div>
                                 <div id="namer-input">
                                 <input id="pac-input" type="text" name="cadenaBusqueda" placeholder="Dirección" >
@@ -38,7 +40,10 @@
                 
     </section>
 
-    <section class="engine"></section><section class="cid-qJt8VEMmmh" id="footer1-g">
+{%endblock%}
+
+{%block footer%}
+<section class="engine"></section><section class="cid-qJt8VEMmmh" id="footer1-g">
         <div class="container">
             <div class="media-container-row content text-white">
                 <div class="col-12 col-md-3">
@@ -48,10 +53,10 @@
                 </div>
                 <div class="col-12 col-md-3 mbr-fonts-style display-7">
                     <h5 class="pb-3">
-                       Dirección
+                      Dirección
                     </h5>
                     <p class="mbr-text">
-                         Zaragoza 312 pte, col. centro
+                        Zaragoza 312 pte, col. centro
                         <br>Los Mochis, Sinaloa
                     </p>
                 </div>
@@ -66,8 +71,10 @@
                 </div>
             </div>
         </div>
-    </section>
+      </section>
 {%endblock%}
+
+
 
 {%block scripts%}
 <script type="text/javascript">

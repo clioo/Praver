@@ -1,9 +1,11 @@
 from rest_framework import serializers
 from apps.inmueble.models import Inmueble,ImagenesInmbueble,Localidades
-
+from django.contrib.auth.models import User
+from apps.usuarios.models import Profile
 class InmuebleSerializer(serializers.ModelSerializer):
     imagenes = serializers.SerializerMethodField('obtenerImagenes')
     descripciones = serializers.SerializerMethodField('obtenerDescripciones')
+    datosVendedor = serializers.SerializerMethodField('obtenerDatosVendedor')
     class Meta:
         model = Inmueble
         fields = '__all__'
@@ -17,6 +19,12 @@ class InmuebleSerializer(serializers.ModelSerializer):
         localidad = Localidades.objects.filter(id=inmueble.colonia)
         serializer = DescripcionLocalidades(localidad,many=True,context=self.context)
         return serializer.data
+    def obtenerDatosVendedor(self,inmueble):
+        perfil = Profile.objects.filter(user=inmueble.user.id)
+        serializer = ProfileSerializer(perfil,many=True,context=self.context)
+        return serializer.data
+
+
 
 class ImagenesInmbuebleSerializer(serializers.ModelSerializer):
     class Meta:
@@ -31,3 +39,10 @@ class DescripcionLocalidades(serializers.Serializer):
     d_asenta = serializers.CharField(max_length=30)
     D_mnpio = serializers.CharField(max_length=30)
     d_estado = serializers.CharField(max_length=30)
+
+
+class ProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Profile
+        fields= '__all__'
+    

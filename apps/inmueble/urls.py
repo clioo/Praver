@@ -3,7 +3,7 @@ from apps.inmueble.views import vista_lista_inmuebles,vista_json_latLonInmueble,
 from rest_framework.urlpatterns import format_suffix_patterns
 urlpatterns = [
     url(r'^inmueble/publicar',vistaPublicar,name="publicar"),
-    url(r'^inmueble/lista-inmueble/(?P<cadenaBusqueda>.*)$',vista_lista_inmuebles,name="listaInmuebles"),
+    url(r'^inmueble/lista-inmueble/(?P<cadenaBusqueda>.*)/(?P<tipoVenta>.*)$',vista_lista_inmuebles,name="listaInmuebles"),
     url(r'^ajax/municipios',ajax_getMunicipios,name="municipios"),
     url(r'^ajax/colonias',ajax_getColonias,name="colonias"),
     url(r'^api/inmuebles/(?P<lat1>.*)/(?P<lat2>.*)/(?P<lon1>.*)/(?P<lon2>.*)$',vista_json_mapaInmuebles,name="jsonMapaInmuebles"),#/(?P<lat1>\d+)/(?P<lat2>\d+)/(?P<lon1>\d+)/(?P<lon2>\d+)/$
