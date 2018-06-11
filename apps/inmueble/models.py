@@ -46,10 +46,14 @@ class Inmueble(models.Model):
     #_____________________
     estadoConservacion = models.CharField(max_length=4, choices=opcionesEstadoConserva) #
     avisoDestacado = models.BooleanField(default=False)
-
+    contadorVisitas = models.IntegerField(default=0)
 class ImagenesInmbueble(models.Model):
     inmueble  = models.ForeignKey(Inmueble)
     imagen =models.ImageField()
+
+class FavoritosInmuebles(models.Model):
+    inmueble = models.ForeignKey(Inmueble)
+    user = models.ForeignKey(User)
 
 class Localidades(models.Model):
     id = models.AutoField(primary_key=True)

@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from apps.inmueble.models import ImagenesInmbueble,Inmueble
 from apps.usuarios.models import Profile
-
+from apps.inmueble.serializers import *
 # Create your views here.
 def index(request):
     return render(request,'index.html')
@@ -68,3 +68,10 @@ def vista_json_correoDisponible(request):
 
 def vista_regex(request):
     return render(request,'regEx/regEx.html')
+
+@login_required(login_url='/login/')
+def vista_tus_inmuebles(request):
+    inmuebles = Inmueble.objects.filter(user=request.user)
+    serializer = InmuebleSerializer(inmuebles,many=True)
+    print(inmuebles)
+    return render(request,"inmueble/anuncios.html",{'inmuebles':serializer.data})

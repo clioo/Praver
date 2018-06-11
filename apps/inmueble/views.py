@@ -106,6 +106,12 @@ def ajax_getColonias(request):
     return JsonResponse(serializer.data,safe=False)
     pass
 
+def ajax_contadorVisitas(request,id_inmueble):
+    inmueble = Inmueble.objects.get(id=id_inmueble)
+    inmueble.contadorVisitas = inmueble.contadorVisitas + 1
+    inmueble.save()
+    return HttpResponse("")
+
 @api_view(['GET'])
 def vista_json_mapaInmuebles(request,lat1,lat2,lon1,lon2): #,lat1,lat2,lon1,lon2
     inmuebles = Inmueble.objects.filter(longitud__gt=lon2

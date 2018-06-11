@@ -11,5 +11,6 @@ urlpatterns = [
     url(r'^api/filtroInmuebles/(?P<lat1>.*)/(?P<lat2>.*)/(?P<lon1>.*)/(?P<lon2>.*)/(?P<precioMin>.*)/(?P<precioMax>.*)/(?P<tipoInmueble>.*)/(?P<recamaras>.*)/(?P<estacionamiento>.*)/(?P<banos>.*)/(?P<mediosBanos>.*)/(?P<tipoVenta>.*)/(?P<tipoRenta>.*)/(?P<tipoTraspaso>.*)/(?P<servicioGas>.*)/(?P<servicioAire>.*)/(?P<servicioSegu>.*)/(?P<servicioCale>.*)/(?P<servicioAmu>.*)$',vista_json_filtroInmuebles,name="jsonFiltroInmuebles"),
     url(r'^api/inmuebleLatLon/(?P<lat>.*)/(?P<lon>.*)$',vista_json_latLonInmueble,name="jsonLatLonInmueble"),
     url(r'^inmueble/inmueble-individual/(?P<id_inmueble>.*)$',vista_inmueble_individual,name="inmuebleIndividual"),
+    url(r'^api/contadorVisitas/(?P<id_inmueble>.*)$',ajax_contadorVisitas,name="contadorVisitas"),
 ]
 urlpatterns =  format_suffix_patterns(urlpatterns)

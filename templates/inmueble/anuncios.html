@@ -1,0 +1,28 @@
+{%extends 'base/base.html'%}
+{% load staticfiles %}
+{%block titulo%}Tus anuncios{%endblock%}
+
+{%block content%}
+<table class="table table-hover table-responsive">
+        <thead>
+          <tr>
+            <th scope="col">Dirección</th>
+            <th scope="col">Visitas</th>
+          </tr>
+        </thead>
+        <tbody>
+        {%for inmueble in inmuebles%}
+          <tr>
+              {%for descripcion in inmueble.descripciones%}
+              <th scope="row">{{inmueble.calle}} {{inmueble.numExt}}, {{descripcion.d_asenta}}, {{descripcion.d_ciudad}} </th>
+              {%endfor%}
+            <td> 
+                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#inmueble-{{inmueble.id}}" aria-expanded="false" aria-controls="collapseExample">
+                    Button with data-target
+                  </button>
+                </td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+{%endblock%}
