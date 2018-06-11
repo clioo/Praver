@@ -15,7 +15,7 @@ Inmueble
 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
     <div class="carousel-inner" style="width: 100%;height: 100%;">
       
-        {%for imagen in inmueble.imagenes%}
+        {%for imagen in inmueble.imagenes%} 
         {%if forloop.counter == 1%}
         <div class="carousel-item active"style="width: 100%; height: 100%;">
                 <img class="d-block w-100" src="/{{imagen.imagen}}" style="width: 100%; height: 100%;">
@@ -241,6 +241,22 @@ Inmueble
                               <td>Local de negocio</td>
                               {%endif%}
                             </tr>
+                            <tr>
+                              <th scope="row">Antigüedad</th>
+                              <td>{{inmueble.antiguedad}} años</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Estado de conservación</th>
+                                {%if inmueble.estadoConservacion == 'buen'%}
+                                <td class="bg-success">Bueno</td>
+                                {%elif inmueble.estadoConservacion == 'malo'%}
+                                <td class="bg-danger">Malo</td>
+                                {%elif inmueble.estadoConservacion == 'remod'%}
+                                <td class="bg-warning">Para remodelación</td>
+                                {%elif inmueble.estadoConservacion == 'vand'%}
+                                <td class="bg-warning">Vandalizada</td>
+                                {%endif%}
+                              </tr>
                         </tbody>
                       </table>   
                   </div>
@@ -253,7 +269,30 @@ Inmueble
               {%if not request.user.is_authenticated%}
               <p class="card-text">Necesitas <a style="color: #007bff;" href="{%url 'login'%}">iniciar sesión</a> para ver los datos del vendedor</p>
               {%else%}
-
+              <table class="table-sm table-bordered">
+                  <tbody>
+                    {%for datos in inmueble.datosVendedor%}
+                    <tr>
+                        <th scope="row">Nombre</th>
+                        <td>{{datos.nombre}}</td>
+                      </tr>
+                    <tr>
+                        <th scope="row">Correo electrónico</th>
+                        <td>{{datos.email}}</td>
+                      </tr>
+                    <tr>
+                        <th scope="row">Teléfono</th>
+                        <td>{{datos.telefono}}</td>
+                      </tr>
+                    {%if datos.telefono2%}
+                    <tr>
+                        <th scope="row">Teléfono secundario</th>
+                        <td>{{datos.telefono2}}</td>
+                      </tr>
+                      {%endif%}
+                    {%endfor%}
+                  </tbody>
+                </table>
               {%endif%}
             </div>
           </div>
