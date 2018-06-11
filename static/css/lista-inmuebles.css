@@ -8,6 +8,11 @@
     padding-top: 2%;
 
 }
+
+.background-white{
+    background: white;
+}
+
 body{
     background: #0000001f;
 }

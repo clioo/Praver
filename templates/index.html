@@ -23,18 +23,20 @@ Inicio
                                     <div id="cmd-rentar" class="contenedorSpan"><span>Rentar</span></div>
                                     <div id="cmd-traspasar" class="contenedorSpan"><span>Traspasar</span></div>
                                     </div>
-                                <div id="namer-input">
-                                <input id="pac-input" type="text" name="cadenaBusqueda" placeholder="Dirección" >
-                                
-                                <br>
-                                <br>
-                                <button id="cmd-buscar" type="button" class="btn btn-primary">
-                                    <i class="fa fa-search"></i> Buscar
-                                    </button>
+                                <form id="frm-buscar">
+                                    <div id="namer-input">
+                                        <input id="pac-input" type="text" name="cadenaBusqueda" placeholder="Dirección" >
+                                        
+                                        <br>
+                                        <br>
+                                        <button id="cmd-buscar" type="submit" class="btn btn-primary">
+                                            <i class="fa fa-search"></i> Buscar
+                                            </button>
+                                        <p class="mbr-text pb-3 mbr-fonts-style display-5"></p>
                                     
-                                <p class="mbr-text pb-3 mbr-fonts-style display-5"></p>
-                            
-                                </div>
+                                        </div>
+                                </form>
+
                             </div>
                     </div>
                 
@@ -78,6 +80,7 @@ Inicio
 
 {%block scripts%}
 <script type="text/javascript">
+
     function initAutocomplete() {
       autocomplete = new google.maps.places.Autocomplete(
           /** @type {!HTMLInputElement} */(document.getElementById('pac-input')),

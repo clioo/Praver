@@ -1,0 +1,267 @@
+{%extends 'base/base.html'%}
+{% load staticfiles %}
+
+{%block titulo%}
+Inmueble
+{%endblock%}
+
+{%block extrastatic%}
+<link rel="stylesheet" href="{%static 'css/inmuebleIndividual.css'%}">
+{%endblock%} 
+
+{%block content%}
+{%for inmueble in inmuebles%}
+<h1>{{inmueble.titulo}}</h1>
+<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+    <div class="carousel-inner" style="width: 100%;height: 100%;">
+      
+        {%for imagen in inmueble.imagenes%}
+        {%if forloop.counter == 1%}
+        <div class="carousel-item active"style="width: 100%; height: 100%;">
+                <img class="d-block w-100" src="/{{imagen.imagen}}" style="width: 100%; height: 100%;">
+              </div>
+        {%else%}
+        <div class="carousel-item" style="width: 100%; height: 100%;">
+              <img class="d-block w-100" src="/{{imagen.imagen}}" style="width: 100%; height: 100%;">
+            </div>
+        {%endif%}
+        {%endfor%}
+        <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="sr-only">Previous</span>
+          </a>
+          <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="sr-only">Next</span>
+          </a>
+    </div>
+
+  </div>
+  <div class="row">
+    <div class="container">
+      <h2>Descripción</h2>
+        <textarea readonly>
+            {{inmueble.descripcion}}
+            </textarea>
+        <h2>Precio</h2>
+        <table class="table-sm table-bordered">
+          <tbody>
+            {%if inmueble.precioVenta%}
+            <tr>
+              <th scope="row">Precio de venta</th>
+              <td>{{inmueble.precioVenta}}$(MXN)</td>
+            </tr>
+            {%endif%}
+            {%if inmueble.precioRenta%}
+            <tr>
+                <th scope="row">Precio de renta</th>
+                <td>{{inmueble.precioRenta}}$(MXN)</td>
+            </tr>
+            {%endif%}
+            {%if inmueble.precioTraspaso%}
+            <tr>
+                <th scope="row">Precio de traspaso</th>
+                <td>{{inmueble.precioTraspaso}}$(MXN)</td>
+            </tr>
+            {%endif%}
+          </tbody>
+        </table>
+        <h2>Dirección</h2>
+        <table class="table-sm table-bordered">
+          <tbody>
+            {%for descripcion in inmueble.descripciones%}
+            <tr>
+              <th scope="row">Estado</th>
+              <td>{{descripcion.d_estado}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Municipio</th>
+              <td>{{descripcion.D_mnpio}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Ciudad</th>
+              <td>{{descripcion.d_ciudad}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Colonia</th>
+              <td>{{descripcion.d_asenta}}</td>
+            </tr>
+            {%endfor%}
+            {%if inmueble.mostrarMapa ==  'exac'%}
+            <tr>
+                <th scope="row">Código postal</th>
+                <td>{{inmueble.codigoPostal}}</td>
+              </tr>
+            <tr>
+              <th scope="row">Calle</th>
+              <td>{{inmueble.calle}}</td>
+            </tr> 
+            <tr>
+                <th scope="row">Número Interior</th>
+                <td>{{inmueble.numInt}}</td>
+              </tr>
+            <tr>
+                <th scope="row">Número Exterior</th>
+                <td>{{inmueble.numExt}}</td>
+              </tr>   
+            {%endif%}
+
+          </tbody>
+        </table>
+        <h2>Dimensiones</h2>
+        <table class="table-sm table-bordered">
+            <tbody>
+              <tr>
+                <th scope="row">Metros totales</th>
+                <td>{{inmueble.metrosTotales}}m²</td>
+              </tr>
+              <tr>
+                  <th scope="row">Metros construidos</th>
+                  <td>{{inmueble.metrosConstruidos}}m²</td>
+                </tr>
+            </tbody>
+          </table>
+        <h2>Detalles</h2>
+        <div class="accordion" id="accordion">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-link" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                    <i class="fa fa-caret-down">Divisiones</i>
+                    
+                  </button>
+                </h5>
+              </div>
+          
+              <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                    <table class="table-sm table-bordered">
+                        <tbody>
+                          <tr>
+                              <th scope="row">Recamaras</th>
+                              <td>{{inmueble.recamaras}}</td>
+                            </tr>
+                            <tr>
+                                <th scope="row">Baños</th>
+                                <td>{{inmueble.banos}}</td>
+                              </tr>
+                            <tr>
+                                <th scope="row">Medios baños</th>
+                                <td>{{inmueble.mediosBanos}}</td>
+                              </tr>
+                            <tr>
+                                <th scope="row">Estacionamiento</th>
+                                <td>{{inmueble.estacionamiento}}</td>
+                              </tr>
+                        </tbody>
+                      </table>  
+                    </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      <i class="fa fa-caret-down">Servicios</i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                    <table class="table-sm table-bordered">
+                        <tbody>
+                          <tr>
+                            <th scope="row">Gas</th>
+                            {%if inmueble.servicioGas == true%}
+                            <td><i class="fa fa-check"></i></td>
+                            {%else%}
+                            <td><i class="fa fa-times"></i></td>
+                            {%endif%}
+                          </tr>
+                          <tr>
+                              <th scope="row">Aire acondicionado</th>
+                              {%if inmueble.servicioAire == true%}
+                              <td><i class="fa fa-check"></i></td>
+                              {%else%}
+                              <td><i class="fa fa-times"></i></td>
+                              {%endif%}
+                            </tr>
+                          <tr>
+                              <th scope="row">Seguridad privada</th>
+                              {%if inmueble.servicioSegu == true%}
+                              <td><i class="fa fa-check"></i></td>
+                              {%else%}
+                              <td><i class="fa fa-times"></i></td>
+                              {%endif%}
+                            </tr>
+                          <tr>
+                              <th scope="row">Calefaccion</th>
+                              {%if inmueble.servicioCale == true%}
+                              <td><i class="fa fa-check"></i></td>
+                              {%else%}
+                              <td><i class="fa fa-times"></i></td>
+                              {%endif%}
+                            </tr>
+                          <tr>
+                              <th scope="row">Amueblada</th>
+                              {%if inmueble.servicioAmu == true%}
+                              <td><i class="fa fa-check"></i></td>
+                              {%else%}
+                              <td><i class="fa fa-times"></i></td>
+                              {%endif%}
+                            </tr>
+                        </tbody>
+                      </table>                  
+                    </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" type="button" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      <i class="fa fa-caret-down">Otros</i>
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body">
+                    <table class="table-sm table-bordered">
+                        <tbody>
+                          <tr>
+                              <th scope="row">Tipo de inmueble</th>
+                              {%if inmueble.tipoInmueble == 'casa'%}
+                              <td>Casa</td>
+                              {%elif inmueble.tipoInmueble == 'depa'%}
+                              <td>Departamento</td>
+                              {%elif inmueble.tipoInmueble == 'dupl'%}
+                              <td>Dúplex</td>
+                              {%elif inmueble.tipoInmueble == 'ofic'%}
+                              <td>Oficina</td>
+                              {%elif inmueble.tipoInmueble == 'loca'%}
+                              <td>Local de negocio</td>
+                              {%endif%}
+                            </tr>
+                        </tbody>
+                      </table>   
+                  </div>
+              </div>
+            </div>
+          </div>
+        <div class="card carta">
+            <div class="card-body">
+              <h5 class="card-title">¡Contacta al vendedor!</h5>
+              {%if not request.user.is_authenticated%}
+              <p class="card-text">Necesitas <a style="color: #007bff;" href="{%url 'login'%}">iniciar sesión</a> para ver los datos del vendedor</p>
+              {%else%}
+
+              {%endif%}
+            </div>
+          </div>
+    </div>
+ 
+  </div>
+
+
+{%endfor%}
+
+{%endblock%}

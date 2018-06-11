@@ -9,7 +9,7 @@ Lista de inmuebles
 <link rel="stylesheet" href="{%static 'css/lista-inmuebles.css'%}">
 {%endblock%}
 
-{%block content%}
+{%block content%} 
 <!--Barra de búsqueda-->
 <div class="row" style="margin-bottom: 1%;">
     <div class="col-lg-2 col-md-2 col-sm-0"></div>
@@ -36,19 +36,24 @@ Lista de inmuebles
     {%if inmuebles%}
     {%for inmueble in inmuebles%}
     <br>
-    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12" style=" padding-right: 2%; padding-left: 2%; margin-top: 4px; margin-bottom: 4px;">
-
-        <div class="row" style="background: white;" >
+    <div class="col-lg-4 col-md-6 col-sm-12 col-xs-12 background-white" style=" padding-right: 2%; padding-left: 2%; margin-top: 4px; margin-bottom: 4px;">
+        <div class="row">
                 <div id="carrusel{{forloop.counter}}" class="carousel slide" data-ride="carousel" >
+                    
                     <div  class="carousel-inner" style="width: 100%; height: 100%;">
                         {%for imagen in inmueble.imagenes%}
                         {%if forloop.counter == 1 %}
                         <div class="carousel-item active" style="width: 100%; height: 100%;">
-                        <img class="d-block w-100" src="/{{imagen.imagen}}" style="width: 100%; height: 100%;">
+                            <a href="{%url 'inmuebleIndividual' inmueble.id%}">
+                                <img class="d-block w-100" src="/{{imagen.imagen}}" style="width: 100%; height: 100%;">
+                            </a>
+                        
                         </div>
                         {%else%}
                         <div class="carousel-item" style="width: 100%; height: 100%;">
-                        <img class="d-block w-100" src="/{{imagen.imagen}}" style="width: 100%; height: 100%;">
+                            <a href="{%url 'inmuebleIndividual' inmueble.id%}">
+                                <img class="d-block w-100" src="/{{imagen.imagen}}" style="width: 100%; height: 100%;">
+                            </a>
                         </div>
                         {%endif%}
                         {%endfor%}
@@ -63,28 +68,31 @@ Lista de inmuebles
                             </a>
                 </div>
             </div>
-            <div class="row" style="background: white;">
-                <div class="col-12">
-                        <h5>{{inmueble.titulo}}</h5>
-                    </div>
-                <div class="col-12"  >
-                    <div class="row" style="border-top: solid 1px;">
-                        <div class="col-6">
-                            <h6></h6>
-                            {%if inmueble.mostrarMapa == 'exac'%}
+        <div class="row" style="height: 150px;">
+            <div class="col-12">
+                    <h5>{{inmueble.titulo}}</h5>
+                </div>
+            <div class="col-12"  >
+                <div class="row" style="border-top: solid 1px;">
+                    <div class="col-6">
+                        {%for descripcion in inmueble.descripciones%}
+                        <h6>{{descripcion.d_ciudad}}</h6>
+                        <h6>{{descripcion.d_asenta}}</h6>
+                        {%if inmueble.mostrarMapa == 'exac'%}
 
-                            {%endif%}
-                        </div>
-                        <div class="col-6" style="text-align: right;">
-                                {%if inmueble.precioVenta%}
-                                <h6>${{inmueble.precioVenta}} (MXN)</h6>
-                                {%elif inmueble.precioRenta%}
-                                <h6>${{inmueble.precioRenta}} (MXN)</h6>
-                                {%elif inmueble.precioTraspaso%}
-                                <h6>${{inmueble.precioTraspaso}} (MXN)</h6>
-                                {%endif%} 
-                            </div>
+                        {%endif%}
+                        {%endfor%}
                     </div>
+                    <div class="col-6" style="text-align: right;">
+                            {%if inmueble.precioVenta%}
+                            <h6>${{inmueble.precioVenta}} (MXN)</h6>
+                            {%elif inmueble.precioRenta%}
+                            <h6>${{inmueble.precioRenta}} (MXN)</h6>
+                            {%elif inmueble.precioTraspaso%}
+                            <h6>${{inmueble.precioTraspaso}} (MXN)</h6>
+                            {%endif%} 
+                        </div>
+                </div>
             </div>
 
 

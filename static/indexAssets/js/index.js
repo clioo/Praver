@@ -1,4 +1,5 @@
-$('#cmd-buscar').click(function(){
+$('#frm-buscar').submit(function(event){
+	event.preventDefault();
 	let cadenaFiltro = "#";
 	if ($("#cmd-comprar").hasClass("active")) cadenaFiltro = "c,";
 	if ($("#cmd-rentar").hasClass("active")) cadenaFiltro = cadenaFiltro + "r,";
