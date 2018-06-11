@@ -241,3 +241,9 @@ def vista_json_filtroInmuebles(request,lat1,lat2,lon1,lon2,precioMin="-",precioM
     if serializer.data:
         return JsonResponse(serializer.data,safe=False)
     return HttpResponse("Error")
+
+@login_required(login_url='/login/')
+def vista_eliminarInmueble(request,id_inmueble):
+    inmueble = Inmueble.objects.filter(id=id_inmueble)
+    inmueble.delete()
+    return redirect('tusInmuebles')

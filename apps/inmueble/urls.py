@@ -12,5 +12,6 @@ urlpatterns = [
     url(r'^api/inmuebleLatLon/(?P<lat>.*)/(?P<lon>.*)$',vista_json_latLonInmueble,name="jsonLatLonInmueble"),
     url(r'^inmueble/inmueble-individual/(?P<id_inmueble>.*)$',vista_inmueble_individual,name="inmuebleIndividual"),
     url(r'^api/contadorVisitas/(?P<id_inmueble>.*)$',ajax_contadorVisitas,name="contadorVisitas"),
+    url(r'^inmueble/eliminar-inmueble/(?P<id_inmueble>.*)$',vista_eliminarInmueble,name="eliminarInmueble"),
 ]
 urlpatterns =  format_suffix_patterns(urlpatterns)

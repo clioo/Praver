@@ -75,3 +75,4 @@ def vista_tus_inmuebles(request):
     serializer = InmuebleSerializer(inmuebles,many=True)
     print(inmuebles)
     return render(request,"inmueble/anuncios.html",{'inmuebles':serializer.data})
+

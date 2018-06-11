@@ -2,9 +2,13 @@
 {% load staticfiles %}
 {%block titulo%}Tus anuncios{%endblock%}
 
+{%block extrastatic%}
+<link rel="stylesheet" href="{%static 'css/tusAnuncios.css'%}">
+{%endblock%}
+
 {%block content%}
-<table class="table table-hover table-responsive">
-        <thead>
+<table class="table table-hover">
+        <thead class="thead-light">
           <tr>
             <th scope="col">Dirección</th>
             <th scope="col">Visitas</th>
@@ -12,16 +16,26 @@
         </thead>
         <tbody>
         {%for inmueble in inmuebles%}
-          <tr>
+          <tr class="puntero" data-toggle="collapse" data-target="#inmueble-{{inmueble.id}}" aria-expanded="false" aria-controls="collapseExample">
               {%for descripcion in inmueble.descripciones%}
               <th scope="row">{{inmueble.calle}} {{inmueble.numExt}}, {{descripcion.d_asenta}}, {{descripcion.d_ciudad}} </th>
               {%endfor%}
-            <td> 
-                <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#inmueble-{{inmueble.id}}" aria-expanded="false" aria-controls="collapseExample">
-                    Button with data-target
-                  </button>
-                </td>
+              <th><i class="fa fa-eye">{{inmueble.contadorVisitas}}</i></th>
           </tr>
+          <tr>
+              <th colspan="2">
+                    <div class="collapse" id="inmueble-{{inmueble.id}}" style="text-align: center;">
+                        <h3 style="text-align: center;">{{inmueble.titulo}}</h3>
+                            <a class="btn btn-primary" href="{%url 'inmuebleIndividual' inmueble.id%}">Vista previa <i class="fa fa-arrow-right"></i></a>
+                            <a class="btn btn-danger" href="{%url 'eliminarInmueble' inmueble.id%}">Eliminar publicación <i class="fa fa-trash"></i></a>
+                        
+                                             
+                    </div>
+              </th>
+
+
+          </tr>
+
           {%endfor%}
         </tbody>
       </table>
