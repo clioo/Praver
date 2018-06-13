@@ -7,11 +7,11 @@ Pubicar inmueble
 {%endblock%}
 
 {% block extrastatic %}
-    <link rel="stylesheet" href="{%static 'css/publicar.css'%}">
+    
     <link rel="stylesheet" href="{%static 'css/fileinput-rtl.min.css'%}">
     <link rel="stylesheet" href="{%static 'css/fileinput.min.css'%}">
-
-
+    <link rel="stylesheet" href="{%static 'css/jquery.typeProgress.min.css'%}">
+    <link rel="stylesheet" href="{%static 'css/publicar.css'%}">
 
 {% endblock %}
 
@@ -259,8 +259,13 @@ Pubicar inmueble
                 </select>
             </div>
         </div>
-        <input id="input-b3" name="archivos" type="file" class="file" multiple data-show-upload="false" data-show-caption="true" data-msg-placeholder="Select {files} for upload...">
-        
+        <!--<input id="input-b3" name="archivos" type="file" class="file" multiple data-show-upload="false" data-show-caption="true" data-msg-placeholder="">-->
+        <div class="file-loading">
+            <input id="input-42-es" data-show-upload="false" name="archivos" type="file" multiple>
+        </div>
+
+
+
 
     </div>
 
@@ -431,8 +436,10 @@ Pubicar inmueble
     infoWindow.setContent(browserHasGeolocation ? 'Error: The Geolocation service failed.' :'Error: Your browser doesn\'t support geolocation.');
     }
 </script>
-<script src="{%static 'js/fileinput.min.js'%}"></script>
 
+<script src="{%static 'js/fileinput.min.js'%}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/js/locales/es.js"></script>
+<script src="{%static 'js/jquery.typeProgress.min.js'%}"></script>
 
 
 <script src="{%static 'js/formTab.js'%}"></script>

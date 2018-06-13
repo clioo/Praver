@@ -5,7 +5,40 @@ document.getElementById('id_tipoVenta_1').addEventListener('click',checkBoxTipoV
 showTab(currentTab); // Display the current tab
 $('#select_image').change(function(){
   $('#upload_form').submit();  
-});  
+});
+$("#input-42-es").fileinput({
+  language:"es",
+  maxFileCount: 10,
+  allowedFileExtensions: ["jpg", "gif", "png", "txt", "jpeg"]
+});
+$("#id_descripcion").each(function(){
+  $(this).typeProgress();
+});
+$("#id_titulo").each(function(){
+  $(this).typeProgress();
+});
+$("#id_descripcion").keypress(function(){
+  var valor = $(this).val();
+  var elemento = document.getElementById("id_descripcion");
+  if (valor.length >49) {
+    elemento.parentElement.querySelector(".type-progress").style.background ="#00ff00";
+  }
+  else{
+    elemento.parentElement.querySelector(".type-progress").style.background ="#ff0000";
+  }
+});
+$("#id_titulo").keypress(function(){
+  var valor = $(this).val();
+  var elemento = document.getElementById("id_titulo");
+  if (valor.length >19) {
+    elemento.parentElement.querySelector(".type-progress").style.background ="#00ff00";
+
+  }
+  else{
+    elemento.parentElement.querySelector(".type-progress").style.background ="#ff0000";
+  }
+});
+
 $('#upload_form').on('submit', function(e){  
   e.preventDefault();  
 });
@@ -164,6 +197,29 @@ function validateForm() {
     salidas.push(validarInput('id_mediosBanos'));
     salidas.push(validarInput('id_metrosConstruidos'));
     salidas.push(validarInput('id_metrosTotales'));
+    if (parseInt($("#id_metrosTotales").val()) < parseInt($("#id_metrosConstruidos").val())) {
+      var metrosTotales = document.getElementById('id_metrosTotales');
+      var strong  = document.createElement('strong');
+      strong.innerText = `El valor de metros totales es menor al de metros construidos`;
+      strong.id = "strongMetros";
+      strong.style.color = "red";
+      strong.style.fontSize = "11";
+      metrosTotales.parentElement.appendChild(strong);
+      var mt = $("#id_metrosTotales").val();
+      var mc = $("#id_metrosConstruidos").val();
+      document.getElementById("id_metrosTotales").value = "";
+      document.getElementById("id_metrosConstruidos").value = "";
+      salidas.push(validarInput('id_metrosConstruidos'));
+      salidas.push(validarInput('id_metrosTotales'));
+      document.getElementById("id_metrosTotales").value = mt;
+      document.getElementById("id_metrosConstruidos").value = mc;
+    }else{
+      try {
+        document.getElementById('strongMetros').remove();
+      } catch (error) {
+        
+      }
+    }
     try {
       document.getElementById('strongTipoVenta').remove();
     } catch (error) {
@@ -226,6 +282,29 @@ function validateForm() {
       strongMostrarMapa.style.visibility = "hidden";
     }
     
+  }
+  //tab 3
+  if (currentTab == 3) {
+    if ($(".file-preview-thumbnails").children().length == 0) {
+      var metrosTotales = document.querySelector('.file-preview');
+      var strong  = document.createElement('strong');
+      strong.innerText = `Necesitas subir al menos una imágen`;
+      strong.id = "strongImagenes";
+      strong.style.color = "red";
+      strong.style.fontSize = "11";
+      metrosTotales.appendChild(strong);
+      salidas.push(false)
+    }else{
+      try {
+        document.getElementById('strongImagenes').remove();
+      } catch (error) {
+        
+      }
+    }
+  }
+  try {
+    document.getElementById('strongTipoVenta').remove();
+  } catch (error) {
     
   }
 

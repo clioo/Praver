@@ -141,11 +141,8 @@ def vista_json_imagenesInmueble(request,idInmueble):
     pass
 
 def vista_inmueble_individual(request,id_inmueble):
-    print(id_inmueble)
     inmueble = Inmueble.objects.filter(id=id_inmueble)
- 
     serializer = InmuebleSerializer(inmueble,many=True)
-    print(serializer.data)
     if serializer.data:
         return render(request,"inmueble/inmuebleIndividual.html",context={'inmuebles':serializer.data})
         pass
