@@ -158,6 +158,8 @@ tipoTraspaso="-",precioVenta="-",precioRenta="-",precioTraspaso="-",
 entidad,municipio,colonia="-",
 servicioGas="-",servicioAire="-",servicioSegu="-",servicioCale="-",servicioAmu="-"'''
 def vista_lista_inmuebles(request,cadenaBusqueda,tipoVenta):
+    cadenaBusqueda = cadenaBusqueda.replace("#","")
+    print(cadenaBusqueda)
     cadenas = cadenaBusqueda.split(",")
     consulta = Q()
     for cadena in cadenas:
@@ -178,6 +180,7 @@ def vista_lista_inmuebles(request,cadenaBusqueda,tipoVenta):
         if tipoVenta:
             tipoVenta = tipoVenta.split(",")
             for tipo in tipoVenta:
+                print(tipo)
                 if tipo == "c":
                     inmuebles = inmuebles.filter(tipoVenta=True)
                     pass
