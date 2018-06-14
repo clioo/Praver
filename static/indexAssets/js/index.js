@@ -1,10 +1,9 @@
 $('#frm-buscar').submit(function(event){
 	event.preventDefault();
-	var cadenaFiltro = "#";
+	let cadenaFiltro = "#";
 	if ($("#cmd-comprar").hasClass("active")) cadenaFiltro = "c,";
 	if ($("#cmd-rentar").hasClass("active")) cadenaFiltro = cadenaFiltro + "r,";
 	if ($("#cmd-traspasar").hasClass("active")) cadenaFiltro = cadenaFiltro +  "t,";
-	cadenaFiltro.replace("#","");
 	window.location.href = "/inmueble/lista-inmueble/" + document.getElementById('pac-input').value + "/" + cadenaFiltro;
 });
 $("#namer input").on("change keyup paste", function() {
