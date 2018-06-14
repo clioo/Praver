@@ -41,6 +41,7 @@
                 {{request.user.username}}
             </button>
             <div class="dropdown-menu dropdown-menu">
+              <a href="{%url 'actualizarPerfil'%}" class="dropdown-item">Perfil</a>
               <a href="{%url 'tusInmuebles'%}" class="dropdown-item">Tus anuncios</a>
               <a href="{%url 'logout'%}" class="dropdown-item">Salir</a>
             </div>

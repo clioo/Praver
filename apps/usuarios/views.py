@@ -9,6 +9,28 @@ from apps.inmueble.models import ImagenesInmbueble,Inmueble
 from apps.usuarios.models import Profile
 from apps.inmueble.serializers import *
 # Create your views here.
+@login_required(login_url='/login/')
+def vista_updateProfile(request):
+    if request.method == "POST":
+        perfil = Profile.objects.get(user=request.user.id)
+        archivo = request.FILES.get('imagen') 
+        if archivo:
+            perfil.foto = archivo
+            perfil.save()
+            pass
+        if request.POST.get("correo"):
+            user = User.objects.get(id=request.user.id)
+            user.username = request.POST.get("correo")
+            user.email = request.POST.get("correo")
+            user.save()
+            messages.success(request,"Datos actualizados con éxito")
+            pass
+        return redirect("actualizarPerfil")
+        
+        
+        pass
+    return render(request,"usuarios/perfil.html")
+    
 def index(request):
     return render(request,'index.html')
 

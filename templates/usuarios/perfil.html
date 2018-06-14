@@ -1,0 +1,104 @@
+{%extends 'base/base.html'%}
+{% load staticfiles %}
+{%block titulo%}
+Perfil
+{%endblock%}
+
+{% block extrastatic %}
+<link rel="stylesheet" href="{%static 'css/editarPerfil.css'%}">
+<link rel="stylesheet" href="{%static 'css/fileinput-rtl.min.css'%}">
+<link rel="stylesheet" href="{%static 'css/fileinput.min.css'%}">
+{%endblock%}
+
+{%block content%}
+<div id="contenedor" class="container">
+    <form id="form-datos" method="POST" enctype="multipart/form-data">
+            {%csrf_token%}
+        
+        <div id="div_id_form_group_foto" class="form-group">
+            <h3>Foto de perfil</h3>
+            <div id="div_id_foto" class="form-group">
+                    {%if request.user.profile.foto == ""%}
+                    {{request.user.profile.foto}}
+                    <img id="id_foto" src="/static/imagenes/no-foto.jpg" alt="" data-toggle="modal" data-target="#exampleModal">
+                    {%else%}
+                    <img  id="id_foto" src="/{{request.user.profile.foto}}" alt="" data-toggle="modal" data-target="#exampleModal">
+                    {%endif%}
+            </div>
+
+
+        </div>
+        <div id="div_id_nombre" class="form-group">
+            <label for="id_nombre" class="form-control-label">Nombre</label>
+                <input value="{{request.user.profile.nombre}}" type="text" name="nombre" id="id_nombre" class="form-control" disabled>
+            </div>
+        {%if request.user.profile.apellidoPaterno != ""%}
+        <div id="div_id_apellidoPaterno" class="form-group">
+                <label for="id_apellidoPaterno" class="form-control-label">Apellido paterno</label>
+                    <input value="{{request.user.profile.apellidoPaterno}}" type="text" name="apellidoPaterno" id="id_apellidoPaterno" class="form-control" disabled>
+                </div>
+        {%endif%}
+        {%if request.user.profile.apellidoMaterno != ""%}
+        <div id="div_id_apellidoMaterno" class="form-group">
+                <label for="id_apellidoMaterno" class="form-control-label">Apellido Materno</label>
+                    <input value="{{request.user.profile.apellidoMaterno}}" type="text" name="apellidoMaterno" id="id_apellidoMaterno" class="form-control" disabled>
+                </div>
+        {%endif%}
+        <div id="div_id_email" class="form-group">
+                <label for="id_email" class="form-control-label">Correo electrónico</label>
+                    <input value="{{request.user.email}}" type="text" name="correo" id="id_correo" class="form-control">
+                    <strong id="id_strong_correo"></strong>
+                </div>
+                
+        <div id="div_id_telefono" class="form-group">
+                <label for="id_telefono" class="form-control-label">Teléfono</label>
+                    <input value="{{request.user.profile.telefono}}" type="text" name="telefono" id="id_telefono" class="form-control">
+                </div>
+        <div id="div_id_telefono2" class="form-group">
+                <label for="id_telefono" class="form-control-label">Teléfono 2 (opcional)</label>
+                    <input value="{{request.user.profile.telefono2}}" type="text" name="telefono2" id="id_telefono2" class="form-control">
+                </div>
+        <div id="div_botones">
+            <button class="btn btn-primary" type="submit">Guardar cambios <i class="fa fa-cloud"></i></button>
+        </div>
+        
+    </form>
+</div>
+
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Foto de perfil</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                
+                <form method="POST" enctype="multipart/form-data">
+                        {%csrf_token%}
+                    <div class="file-loading">
+                        <input id="input-b9" name="imagen" type="file">
+                        </div>
+                        <div id="kartik-file-errors"></div>
+               
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary" title="Your custom upload logic">Actualizar foto</button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+{%endblock%}
+
+{%block scripts%}
+<script src="{%static 'js/fileinput.min.js'%}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-fileinput/4.4.5/js/locales/es.js"></script>
+<script src="{%static 'js/perfil.js'%}"></script>
+{%endblock%}

@@ -18,14 +18,15 @@ Pubicar inmueble
 {%block content%}
 <form method="POST" id="regForm" enctype="multipart/form-data">
     {%csrf_token%}
-    <h1>Publicar anuncio</h1>
+    
     <div class="tab">
+        <h1>Publica tu anuncio y vende más rápido</h1>
         <div id="div_id_titulo" class="form-group">
             <label for="id_titulo" class="form-control-label">
             Título de la propiedad
             </label>
             <div class="">
-                <input maxlength="100"class="col-lg-9 col-md-12 form-control" id="id_titulo" name="titulo" placeholder="Ejemplo: Bonita casa amplia recién remodelada lista para habitar" type="text">
+                <input maxlength="80"class="col-lg-9 col-md-12 form-control" id="id_titulo" name="titulo" placeholder="Ejemplo: Bonita casa amplia recién remodelada lista para habitar" type="text">
             </div>
         </div>
         <div id="div_id_descripcion" class="form-group">

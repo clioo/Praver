@@ -17,7 +17,7 @@ $("#id_descripcion").each(function(){
 $("#id_titulo").each(function(){
   $(this).typeProgress();
 });
-$("#id_descripcion").keypress(function(){
+$("#id_descripcion").on('input',function(e){
   var valor = $(this).val();
   var elemento = document.getElementById("id_descripcion");
   if (valor.length >49) {
@@ -27,7 +27,7 @@ $("#id_descripcion").keypress(function(){
     elemento.parentElement.querySelector(".type-progress").style.background ="#ff0000";
   }
 });
-$("#id_titulo").keypress(function(){
+$("#id_titulo").on('input',function(){
   var valor = $(this).val();
   var elemento = document.getElementById("id_titulo");
   if (valor.length >19) {
@@ -301,11 +301,6 @@ function validateForm() {
         
       }
     }
-  }
-  try {
-    document.getElementById('strongTipoVenta').remove();
-  } catch (error) {
-    
   }
 
   var salir =  true;

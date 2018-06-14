@@ -12,6 +12,7 @@ from django.contrib.auth.decorators import login_required
 from rest_framework.decorators import api_view
 from django.db.models import Q #esta funcion hace queries por 
 from decimal import Decimal
+from django.contrib import messages
 # Create your views here.
 @login_required(login_url='/login/')
 def vistaPublicar(request):
@@ -75,6 +76,8 @@ def vistaPublicar(request):
             inmueble = Inmueble.objects.last()
             ImagenesInmbueble.objects.create(inmueble=inmueble,imagen=imagen)
             pass
+        messages.success(request,"¡Tu inmueble ha sido publicado! Puedes encontrarlo aquí, la sección de tus anuncios.")
+        return redirect("tusInmuebles")
     estados = Localidades.objects.values('c_estado','d_estado').annotate(Count('d_estado'))
     estados = estados.order_by('d_estado')
     return render(request,"inmueble/publicar.html",{'form':form, 'estados':estados})

@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.conf.urls import * 
+from django.views.static import serve
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^',include('apps.usuarios.urls')),
@@ -25,5 +26,5 @@ urlpatterns = [
 ]
 
 urlpatterns += [
-    url(r'^(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT, }),
+    url(r'^(?P<path>.*)$', serve, {'document_root': settings.MEDIA_ROOT, }),
 ]
