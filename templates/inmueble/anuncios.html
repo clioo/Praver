@@ -7,9 +7,15 @@
 {%endblock%}
 
 {%block content%}
+<div class="row">
+  <div class="col-5">
+     <canvas id="myChart" width="400" height="400"></canvas>
+  </div>
+</div>
 <table class="table table-hover">
         <thead class="thead-light">
           <tr>
+            <th scope="col">#ID</th>
             <th scope="col">Dirección</th>
             <th scope="col">Visitas</th>
           </tr>
@@ -17,7 +23,8 @@
         <tbody>
         {%for inmueble in inmuebles%}
           <tr class="puntero" data-toggle="collapse" data-target="#inmueble-{{inmueble.id}}" aria-expanded="false" aria-controls="collapseExample">
-              {%for descripcion in inmueble.descripciones%}
+            <th>{{inmueble.id}}</th>  
+            {%for descripcion in inmueble.descripciones%}
               <th scope="row">{{inmueble.calle}} {{inmueble.numExt}}, {{descripcion.d_asenta}}, {{descripcion.d_ciudad}} </th>
               {%endfor%}
               <th><i class="fa fa-eye">{{inmueble.contadorVisitas}}</i></th>
@@ -32,11 +39,54 @@
                                              
                     </div>
               </th>
-
-
           </tr>
 
           {%endfor%}
+
         </tbody>
       </table>
+{%endblock%}
+
+{%block scripts%}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.1/Chart.min.js"></script>
+<script>
+  var ctx = document.getElementById("myChart").getContext('2d');
+  console.log({{ labels}})
+  var myChart = new Chart(ctx, {
+      type: 'bar',
+      data: {
+          labels: {{labels}},
+          datasets: [{
+              label: '# de vistas',
+              data: {{contador|safe}},
+              backgroundColor: [
+                  'rgba(255, 99, 132, 0.2)',
+                  'rgba(54, 162, 235, 0.2)',
+                  'rgba(255, 206, 86, 0.2)',
+                  'rgba(75, 192, 192, 0.2)',
+                  'rgba(153, 102, 255, 0.2)',
+                  'rgba(255, 159, 64, 0.2)'
+              ],
+              borderColor: [
+                  'rgba(255,99,132,1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+              ],
+              borderWidth: 1
+          }]
+      },
+      options: {
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          }
+      }
+  });
+  </script>
 {%endblock%}

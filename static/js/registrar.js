@@ -1,3 +1,4 @@
+let correo_valido = false;
 $(document).ready(function(){
     $('.telefono').mask('(000) 000 00 00');
 });
@@ -27,6 +28,7 @@ $("#id_correo").blur(function() {
             if (validateEmail(correo.value)) {
                 document.getElementById('id_strong_correo').style.visibility = "hidden";
                 if(datos == "True"){
+                    correo_valido = true;
                     document.getElementById('id_strong_correo').style.visibility = "visible";
                     document.getElementById('id_strong_correo').style.color = "green";
                     correo.classList.remove("has-danger");
@@ -34,6 +36,7 @@ $("#id_correo").blur(function() {
                     document.getElementById('id_strong_correo').innerText = "Correo disponible";
                 }
                 else{
+                    correo_valido = false;
                     document.getElementById('id_strong_correo').style.visibility = "visible";
                     document.getElementById('id_strong_correo').style.color = "red";
                     document.getElementById('id_strong_correo').innerText = "Correo no disponible";
@@ -75,6 +78,8 @@ function validateForm() {
     else{
         document.getElementById('id_strong_contrasenas').style.visibility = "hidden";
     }
+    salidas.push(validateEmail(document.getElementById("id_correo").value));
+    salidas.push(correo_valido);
     var salir =  true;
   salidas.forEach(salida => {
     if (salida == false) {
@@ -82,6 +87,7 @@ function validateForm() {
     }
   });
   console.log(salir);
+  $(".has-danger").focus();
   return salir;
 }
 

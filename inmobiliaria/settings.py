@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'apps.usuarios',
     'apps.inmueble',
-    'rest_framework'
+    'rest_framework',
+    'social_django', 
 ]
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
@@ -51,7 +52,18 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
+
+AUTHENTICATION_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+
+    'django.contrib.auth.backends.ModelBackend',
+)
+SOCIAL_AUTH_FACEBOOK_KEY = '853637211494474'  # App ID
+SOCIAL_AUTH_FACEBOOK_SECRET = 'd1808aeacdb99fa7743c692b66f68629'  # App Secret
 
 ROOT_URLCONF = 'inmobiliaria.urls'
 
@@ -66,7 +78,10 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
-                'apps.usuarios.contextProcessors.add_variable_context'
+                'apps.usuarios.contextProcessors.add_variable_context',
+                
+                'social_django.context_processors.backends',  # <--
+                'social_django.context_processors.login_redirect', # <--
             ],
         },
     },

@@ -182,7 +182,6 @@ def vista_lista_inmuebles(request,cadenaBusqueda,tipoVenta):
                     inmuebles = inmuebles.filter(tipoVenta=True)
                     pass
                 if tipo == "r":
-                    print("jeloooou")
                     inmuebles = inmuebles.filter(tipoRenta=True)
                     pass
                 if tipo == "t":

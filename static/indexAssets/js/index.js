@@ -1,10 +1,12 @@
 $('#frm-buscar').submit(function(event){
 	event.preventDefault();
-	let cadenaFiltro = "#";
+	let cadenaFiltro = "";
 	if ($("#cmd-comprar").hasClass("active")) cadenaFiltro = "c,";
 	if ($("#cmd-rentar").hasClass("active")) cadenaFiltro = cadenaFiltro + "r,";
 	if ($("#cmd-traspasar").hasClass("active")) cadenaFiltro = cadenaFiltro +  "t,";
-	window.location.href = "/inmueble/lista-inmueble/" + document.getElementById('pac-input').value + "/" + cadenaFiltro;
+	if(cadenaFiltro == "")cadenaFiltro = "#";
+	if ($("#pac-input").val() != "") window.location.href = "/inmueble/lista-inmueble/" + document.getElementById('pac-input').value + "/" + cadenaFiltro;
+	
 });
 $("#namer input").on("change keyup paste", function() {
 	var inputValue = $(this).val();

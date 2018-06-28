@@ -274,7 +274,14 @@ Inmueble
                     {%for datos in inmueble.datosVendedor%}
                     <tr>
                         <th scope="row">Nombre</th>
-                        <td>{{datos.nombre}}</td>
+                        <td class="align-center">{{datos.nombre}}
+                          <br>
+                          {%if request.user.profile.foto == ""%}
+                          <img id="id_foto" src="/static/imagenes/no-foto.jpg" alt="" data-toggle="modal" data-target="#exampleModal">
+                          {%else%}
+                          <img  id="id_foto" src="/{{request.user.profile.foto}}" alt="" data-toggle="modal" data-target="#exampleModal">
+                          {%endif%}
+                        </td>
                       </tr>
                     <tr>
                         <th scope="row">Correo electrónico</th>

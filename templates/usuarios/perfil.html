@@ -12,6 +12,9 @@ Perfil
 
 {%block content%}
 <div id="contenedor" class="container">
+    <div id="pageloader">
+            <img src="{%static 'imagenes/loading.gif'%}" alt="processing..." />
+            </div>
     <form id="form-datos" method="POST" enctype="multipart/form-data">
             {%csrf_token%}
         
@@ -19,7 +22,6 @@ Perfil
             <h3>Foto de perfil</h3>
             <div id="div_id_foto" class="form-group">
                     {%if request.user.profile.foto == ""%}
-                    {{request.user.profile.foto}}
                     <img id="id_foto" src="/static/imagenes/no-foto.jpg" alt="" data-toggle="modal" data-target="#exampleModal">
                     {%else%}
                     <img  id="id_foto" src="/{{request.user.profile.foto}}" alt="" data-toggle="modal" data-target="#exampleModal">
@@ -49,6 +51,11 @@ Perfil
                     <input value="{{request.user.email}}" type="text" name="correo" id="id_correo" class="form-control">
                     <strong id="id_strong_correo"></strong>
                 </div>
+        <div data-toggle="modal" data-target="#passwordModal" class="form-group" id="id_contrasena">
+            <label for="id_contrasena" class="form-control-label">Contraseña  </label>
+            <input type="text" id="id_contrasena"  class="form-control" value="********" disabled>
+            <h6>(click para cambiar)</h6>
+        </div>
                 
         <div id="div_id_telefono" class="form-group">
                 <label for="id_telefono" class="form-control-label">Teléfono</label>
@@ -90,6 +97,44 @@ Perfil
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
               <button type="submit" class="btn btn-primary" title="Your custom upload logic">Actualizar foto</button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal fade" id="passwordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Cambiar contraseña</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+                <form id="frm-cambiarContrasena" method="POST" enctype="multipart/form-data">
+                    {%csrf_token%}
+                    <div id="div_id_contrasenaActual" class="form-group">
+                        <label for="id_contrasenaActual" class="form-control-label">Contraseña actual</label>
+                        <input maxlength="18" type="password" name="contrasenaActual" id="id_contrasenaActual" class="form-control">
+                        <strong id="id_strong_contrasenaCorrecta" style="color:red;font-size: 11;visibility: hidden;"></strong>
+                    </div>
+                    <div id="div_id_contrasenaNueva" class="form-group">
+                            <label for="id_contrasenaNueva" class="form-control-label">Contraseña nueva</label>
+                            <input maxlength="18" type="password" name="contrasenaNueva" id="id_contrasenaNueva" class="form-control">
+                            <strong id="id_strong_contrasenas" style="color:red;font-size: 11;visibility: hidden;"></strong>
+                        </div>
+                    <div id="div_id_confirmarContrasena" class="form-group">
+                            <label for="id_confirmarContrasena" class="form-control-label">Confirmar contraseña</label>
+                            <input maxlength="18" type="password" name="confirmarContrasena" id="id_confirmarContrasena" class="form-control">
+                        </div>
+               
+
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary" title="Your custom upload logic">Cambiar contraseña</button>
             </div>
             </form>
           </div>

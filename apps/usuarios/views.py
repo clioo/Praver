@@ -9,21 +9,41 @@ from apps.inmueble.models import ImagenesInmbueble,Inmueble
 from apps.usuarios.models import Profile
 from apps.inmueble.serializers import *
 # Create your views here.
+
+def vista_ajax_autenticar(request):
+    contrasena = request.GET.get('contrasena',None)
+    usuario = authenticate(username=request.user.username,password=contrasena)
+    if usuario:
+        return HttpResponse("True")
+        pass
+    return HttpResponse("False")
+
 @login_required(login_url='/login/')
 def vista_updateProfile(request):
+    prueba = User.objects.get(id=request.user.id)
     if request.method == "POST":
         perfil = Profile.objects.get(user=request.user.id)
+
         archivo = request.FILES.get('imagen') 
         if archivo:
             perfil.foto = archivo
             perfil.save()
+            messages.success(request,"Foto actualizada con éxito")
             pass
         if request.POST.get("correo"):
             user = User.objects.get(id=request.user.id)
             user.username = request.POST.get("correo")
             user.email = request.POST.get("correo")
             user.save()
-            messages.success(request,"Datos actualizados con éxito")
+            messages.success(request,"Correo actualizado con éxito")
+            pass
+        if request.POST.get("contrasenaNueva"):
+            user = User.objects.get(id=request.user.id)
+            user.set_password(request.POST.get("contrasenaNueva"))
+            user.save()
+            user = authenticate(username=user.username,password=request.POST.get("contrasenaNueva"))
+            login(request,user)
+            messages.success(request,"Contraseña actualizada con éxito")
             pass
         return redirect("actualizarPerfil")
         
@@ -72,7 +92,8 @@ def vista_registrar(request):
         profile_form.telefono =  request.POST.get('telefono1')
         profile_form.telefono2 = request.POST.get('telefono2')
         profile_form.save()
-        return redirect('index')
+        messages.success(request,"¡Bienvenidx " + request.POST.get('nombre') + "! aquí puedes actualizar tu foto de perfil si lo deseas.")
+        return redirect('actualizarPerfil')
     else:
         form = RegistrarForm()
         profile_form = RegistrarAgenteForm()
@@ -84,6 +105,7 @@ def vista_registrar(request):
 
 def vista_json_correoDisponible(request):
     correo = request.GET.get('correo',None)
+    correo = str(correo).lower()
     if User.objects.filter(email=correo):
         return HttpResponse("False")
     return HttpResponse("True")
@@ -96,5 +118,12 @@ def vista_tus_inmuebles(request):
     inmuebles = Inmueble.objects.filter(user=request.user)
     serializer = InmuebleSerializer(inmuebles,many=True)
     print(inmuebles)
-    return render(request,"inmueble/anuncios.html",{'inmuebles':serializer.data})
+    labels = []
+    contador = []
+    for inmueble in inmuebles:
+        labels.append(inmueble.id)
+        contador.append(inmueble.contadorVisitas)
+        print(inmueble.id)
+        pass
+    return render(request,"inmueble/anuncios.html",{'inmuebles':serializer.data,'labels':labels,'contador':contador})
 

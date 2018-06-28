@@ -8,6 +8,10 @@
     width: 76%;
     padding-left: 25%;
 }
+#id_foto{
+    height: 60px;
+    width: 60px;
+}
 .carousel{
     height: 450px;
     border: 3px;

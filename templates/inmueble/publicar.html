@@ -16,6 +16,9 @@ Pubicar inmueble
 {% endblock %}
 
 {%block content%}
+<div id="pageloader">
+    <img src="{%static 'imagenes/loading.gif'%}" alt="processing..." />
+ </div>
 <form method="POST" id="regForm" enctype="multipart/form-data">
     {%csrf_token%}
     
@@ -264,6 +267,8 @@ Pubicar inmueble
         <div class="file-loading">
             <input id="input-42-es" data-show-upload="false" name="archivos" type="file" multiple>
         </div>
+
+
 
 
 

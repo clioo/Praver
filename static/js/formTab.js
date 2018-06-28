@@ -174,6 +174,7 @@ function nextPrev(n) {
   if (currentTab >= x.length) {
     //...the form gets submitted:
     document.getElementById("regForm").submit();
+    $("#pageloader").fadeIn();
     return false;
   }
   // Otherwise, display the correct tab:
